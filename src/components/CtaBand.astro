@@ -1,0 +1,33 @@
+---
+import { site } from '../data/site';
+import Icon from './Icon.astro';
+
+interface Props {
+  title?: string;
+  text?: string;
+}
+const {
+  title = "Let's find what's leaking — for free",
+  text = 'Get a free funnel audit: a clear picture of your biggest opportunities, with no obligation.',
+} = Astro.props;
+
+const wa = `https://wa.me/${site.whatsapp.intl}?text=${encodeURIComponent(site.whatsapp.message)}`;
+---
+<section class="cta-band">
+  <div class="container narrow cta-inner reveal">
+    <h2 set:html={title} />
+    <p class="lead">{text}</p>
+    <div class="cta-actions">
+      <a href="/free-funnel-audit" class="btn btn--primary btn--lg">Get your free funnel audit</a>
+      <a href={wa} target="_blank" rel="noopener" class="btn btn--ghost btn--lg"><Icon name="whatsapp" size={18} /> Chat on WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-band { background: var(--accent-soft); padding-block: clamp(3.5rem, 7vw, 5rem); }
+  .cta-inner { text-align: center; }
+  .cta-inner .lead { max-width: 52ch; margin-inline: auto; margin-bottom: 1.8rem; color: var(--body); }
+  .cta-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; }
+  .cta-actions .btn--ghost { background: var(--surface); }
+</style>

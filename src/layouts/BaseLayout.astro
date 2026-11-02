@@ -43,6 +43,7 @@ const orgLd = {
     />
     <Seo title={title} description={description} image={image} ogType={ogType} />
     <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
+    <slot name="head" />
   </head>
   <body>
     <a href="#main" class="skip-link">Skip to content</a>

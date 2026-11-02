@@ -1,0 +1,35 @@
+---
+import type { FAQItem } from '../data/services';
+import Icon from './Icon.astro';
+
+interface Props { items: FAQItem[]; }
+const { items } = Astro.props;
+---
+<div class="faq">
+  {items.map((item) => (
+    <details class="faq-item">
+      <summary>
+        <span>{item.q}</span>
+        <Icon name="chevron-down" size={20} class="faq-chev" />
+      </summary>
+      <div class="faq-answer"><p>{item.a}</p></div>
+    </details>
+  ))}
+</div>
+
+<style>
+  .faq { display: flex; flex-direction: column; gap: 0.7rem; max-width: 760px; }
+  .faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+  .faq-item summary {
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: 1.1rem 1.3rem; cursor: pointer; list-style: none;
+    font-family: var(--font-display); font-weight: 600; font-size: var(--fs-base); color: var(--heading);
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary:hover { color: var(--accent-strong); }
+  .faq-chev { flex: none; color: var(--accent-strong); transition: transform 0.2s var(--ease); }
+  .faq-item[open] .faq-chev { transform: rotate(180deg); }
+  .faq-answer { padding: 0 1.3rem 1.2rem; }
+  .faq-answer p { margin: 0; color: var(--body); font-size: var(--fs-sm); max-width: 62ch; }
+  @media (prefers-reduced-motion: reduce) { .faq-chev { transition: none; } }
+</style>

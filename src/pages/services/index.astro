@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { services } from '../../data/services';
+---
+<BaseLayout
+  title="Services"
+  description="GPMM services: sales funnels, copywriting, checkout pages, websites, Meta ads, social growth and e-commerce growth — built to work as one system."
+>
+  <section class="svc-index-hero">
+    <div class="container narrow reveal">
+      <p class="eyebrow">Services</p>
+      <h1>Everything you need to <span class="hl">sell online</span></h1>
+      <p class="lead muted">Pick one piece or the whole system. Each service connects with the others, so your funnel, copy, checkout, web and ads pull in the same direction.</p>
+      <div class="hero-cta">
+        <a href="/free-funnel-audit" class="btn btn--primary btn--lg">Get your free funnel audit</a>
+        <a href="/our-approach" class="btn btn--ghost btn--lg">See how we work</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="services-grid">
+        {services.map((s) => <ServiceCard service={s} />)}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .svc-index-hero { padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(1.5rem, 3vw, 2.5rem); }
+  .svc-index-hero .lead { max-width: 56ch; margin-bottom: 1.6rem; }
+  .hero-cta { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.1rem; }
+</style>
