@@ -64,7 +64,7 @@ const auditIncludes = [
 
   <!-- 2. MANIFESTO -->
   <section class="section section--alt">
-    <div class="container narrow manifesto reveal">
+    <div class="container manifesto reveal">
       <p class="eyebrow">What we believe</p>
       <p class="manifesto-text">Likes don't pay the bills. We build <span class="hl">measurable sales systems</span>, with every euro of traffic tracked from the first click to the repeat purchase. If it can't be measured, it can't be scaled.</p>
       <p class="slogan">“We build sales systems, not vanity metrics.”</p>
@@ -178,13 +178,18 @@ const auditIncludes = [
 
   /* MANIFESTO */
   .manifesto { text-align: center; }
+  @media (min-width: 760px) {
+    .manifesto { text-align: right; }
+    .manifesto > * { max-width: 620px; margin-left: auto; margin-right: 0; }
+  }
   .manifesto-text { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.4rem, 1rem + 2vw, 2.1rem); line-height: 1.3; color: var(--heading); letter-spacing: -0.01em; text-wrap: balance; }
   .slogan { font-family: var(--font-display); font-weight: 500; font-size: var(--fs-lg); color: var(--accent-strong); margin-top: 1.5rem; }
 
   /* BRIDGE IMAGE (half cream / half white) */
   .bridge { background: linear-gradient(to bottom, var(--bg-alt) 50%, var(--bg) 50%); }
   .bridge .container { display: flex; justify-content: center; }
-  .bridge-img { width: min(500px, 100%); height: auto; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); display: block; }
+  .bridge-img { width: min(440px, 100%); aspect-ratio: 3 / 2; height: auto; object-fit: cover; object-position: center; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); display: block; }
+  @media (min-width: 760px) { .bridge .container { justify-content: flex-start; } }
 
   /* SECTION HEADS */
   .sec-head { max-width: 640px; margin-bottom: 2.5rem; }
