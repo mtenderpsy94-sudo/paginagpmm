@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AuditForm from '../components/AuditForm.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+
+const wa = `https://wa.me/${site.whatsapp.intl}?text=${encodeURIComponent(site.whatsapp.message)}`;
+
+const includes = [
+  'A teardown of your funnel and offer',
+  'A check of your traffic and tracking setup',
+  'Three quick wins you can apply right away',
+  'A 30-minute strategy call',
+];
+
+const steps = [
+  { n: '01', title: 'You send your details', body: 'Fill in the short form below — the more context, the better.' },
+  { n: '02', title: 'We review your funnel', body: 'We look at your offer, pages, traffic and tracking.' },
+  { n: '03', title: 'We share findings', body: 'You get your biggest opportunities and a 30-minute call. No obligation.' },
+];
+---
+<BaseLayout
+  title="Free funnel audit"
+  description="Get a free funnel audit from GPMM: a clear picture of where your funnel leaks and your biggest opportunities to grow. No obligation."
+>
+  <section class="audit-hero">
+    <div class="container narrow reveal">
+      <p class="eyebrow">Free funnel audit</p>
+      <h1>Find what's <span class="hl">leaking</span> — for free</h1>
+      <p class="lead muted">Tell us about your offer and we'll review your funnel. No obligation, no hard sell — just a clear picture of your biggest opportunities.</p>
+    </div>
+  </section>
+
+  <section class="section audit-main">
+    <div class="container audit-grid">
+      <div class="audit-copy reveal">
+        <div class="block">
+          <h2>What you get</h2>
+          <ul class="check-list">
+            {includes.map((i) => (<li><Icon name="check" size={18} /> <span>{i}</span></li>))}
+          </ul>
+        </div>
+        <div class="block">
+          <h2>How it works</h2>
+          <ol class="mini-steps">
+            {steps.map((s) => (
+              <li>
+                <span class="ms-n">{s.n}</span>
+                <div>
+                  <strong>{s.title}</strong>
+                  <p class="muted">{s.body}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+        <p class="wa-line">Prefer to talk first? <a href={wa} target="_blank" rel="noopener">Message us on WhatsApp</a>.</p>
+      </div>
+
+      <div class="audit-form-col reveal" id="form">
+        <AuditForm />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .audit-hero { padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(1rem, 2vw, 1.5rem); }
+  .audit-hero .lead { max-width: 54ch; }
+  .audit-main { padding-top: clamp(1.5rem, 3vw, 2.5rem); }
+
+  .audit-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(2rem, 5vw, 3.5rem); align-items: start; }
+  .audit-copy { position: sticky; top: 92px; display: flex; flex-direction: column; gap: 2rem; }
+  .block h2 { font-size: var(--fs-h3); margin-bottom: 1rem; }
+
+  .mini-steps { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+  .mini-steps li { display: flex; gap: 0.9rem; align-items: flex-start; }
+  .ms-n { font-family: var(--font-display); font-weight: 700; color: var(--accent-strong); background: var(--accent-soft); width: 38px; height: 38px; border-radius: var(--radius); display: grid; place-items: center; flex: none; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+  .mini-steps strong { display: block; color: var(--heading); font-family: var(--font-display); font-size: var(--fs-base); }
+  .mini-steps p { margin: 0.2rem 0 0; font-size: var(--fs-sm); }
+
+  .wa-line { font-size: var(--fs-sm); color: var(--muted); }
+
+  @media (max-width: 900px) {
+    .audit-grid { grid-template-columns: 1fr; }
+    .audit-copy { position: static; }
+    .audit-form-col { order: -1; }
+  }
+</style>

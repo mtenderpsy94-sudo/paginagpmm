@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FunnelDiagram from '../components/FunnelDiagram.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+
+const beliefs = [
+  { icon: 'target', title: 'Measure everything', body: 'If a number can be tracked, we track it — from first click to repeat purchase. Decisions follow data, not opinions.' },
+  { icon: 'filter', title: 'One system, not ten tactics', body: 'Funnel, copy, checkout, web and ads only work when they pull together. We build the system, not disconnected pieces.' },
+  { icon: 'check', title: 'Honest about fit', body: "If ads or a funnel won't work for you yet, we'll say so. We'd rather turn down work than take money we can't grow." },
+];
+
+const method = [
+  { n: '01', title: 'Audit', when: 'Week 1', body: 'We map your offer, traffic, funnel and numbers to find exactly where money is leaking. You get a clear picture before anything is built.' },
+  { n: '02', title: 'Strategy', when: 'Week 1–2', body: 'We turn findings into a plan: the offer, the funnel structure, the copy angles and the channels that fit your business and budget.' },
+  { n: '03', title: 'Build', when: 'Weeks 2–5', body: 'We design, write and ship the full system — pages, checkout, emails and tracking — connected and ready to sell.' },
+  { n: '04', title: 'Scale', when: 'Ongoing', body: 'We test, optimize and scale what works. Winners get more budget; everything else gets fixed or cut.' },
+];
+
+const working = [
+  'One team for funnel, copy, checkout, web and ads',
+  'Clear communication and realistic timelines',
+  'Tracking set up so you can see what works',
+  'No long lock-ins that outlast the results',
+];
+---
+<BaseLayout
+  title="Our approach"
+  description="How GPMM works: a measurable, connected sales system built in four steps — audit, strategy, build and scale."
+>
+  <section class="appr-hero">
+    <div class="container narrow reveal">
+      <p class="eyebrow">Our approach</p>
+      <h1>Growth isn't luck. It's a <span class="hl">system</span>.</h1>
+      <p class="lead muted">We don't sell random tactics or vanity metrics. We build one connected sales system, measure every step, and scale what works. Here's how.</p>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="sec-head reveal">
+        <p class="eyebrow">What we believe</p>
+        <h2>Three principles behind everything we do</h2>
+      </div>
+      <div class="belief-grid">
+        {beliefs.map((b) => (
+          <div class="belief-card reveal">
+            <span class="belief-ic"><Icon name={b.icon} size={22} /></span>
+            <h3>{b.title}</h3>
+            <p class="muted">{b.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head reveal">
+        <p class="eyebrow">One connected system</p>
+        <h2>Every part feeds the next</h2>
+        <p class="lead muted">Traffic means nothing without a page that converts. A page means nothing without a checkout that closes. We connect the whole path so no step wastes the one before it.</p>
+      </div>
+      <FunnelDiagram />
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="sec-head reveal">
+        <p class="eyebrow">The method</p>
+        <h2>From leak to scale in four steps</h2>
+      </div>
+      <ol class="process">
+        {method.map((s) => (
+          <li class="step reveal">
+            <span class="step-n">{s.n}</span>
+            <div class="step-body">
+              <div class="step-head">
+                <h3>{s.title}</h3>
+                <span class="step-when">{s.when}</span>
+              </div>
+              <p class="muted">{s.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow reveal">
+      <p class="eyebrow">What it's like</p>
+      <h2>Working with us</h2>
+      <ul class="check-list two">
+        {working.map((w) => (<li><Icon name="check" size={18} /> <span>{w}</span></li>))}
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .appr-hero { padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(1.5rem, 3vw, 2.5rem); }
+  .appr-hero .lead { max-width: 56ch; }
+
+  .belief-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.1rem; }
+  .belief-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.6rem; box-shadow: var(--shadow-sm); }
+  .belief-ic { width: 52px; height: 52px; border-radius: var(--radius); background: var(--accent-soft); color: var(--accent-strong); display: grid; place-items: center; margin-bottom: 1.1rem; }
+  .belief-card h3 { font-size: var(--fs-lg); margin: 0 0 0.5rem; }
+  .belief-card p { margin: 0; font-size: var(--fs-sm); }
+
+  .process { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.6rem 2.5rem; }
+  .step { display: flex; gap: 1.1rem; align-items: flex-start; }
+  .step-n { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; color: var(--accent-strong); background: var(--accent-soft); width: 46px; height: 46px; border-radius: var(--radius); display: grid; place-items: center; flex: none; font-variant-numeric: tabular-nums; }
+  .step-head { display: flex; align-items: baseline; gap: 0.8rem; flex-wrap: wrap; }
+  .step-head h3 { margin: 0; font-size: var(--fs-lg); }
+  .step-when { font-size: 0.8rem; font-weight: 600; color: var(--accent-ink); background: var(--accent-soft); padding: 0.2rem 0.6rem; border-radius: var(--radius-pill); }
+  .step-body p { margin: 0.4rem 0 0; font-size: var(--fs-sm); }
+
+  @media (max-width: 640px) { .process { grid-template-columns: 1fr; } }
+</style>

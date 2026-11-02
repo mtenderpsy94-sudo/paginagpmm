@@ -1,0 +1,49 @@
+---
+import LegalLayout from '../../layouts/LegalLayout.astro';
+import { site } from '../../data/site';
+const contactEmail = site.email || '[TODO: email@gpmm.site]';
+---
+<LegalLayout
+  title="Terms"
+  description="The terms that apply to the use of the GPMM website and services."
+  updated="2 November 2026"
+>
+  <h2>1. About these terms</h2>
+  <p>
+    These terms apply to the use of this website and to services provided by {site.name}
+    (KvK {site.legal.kvk}, BTW {site.legal.btw}), based in {site.location}. By using this
+    site or engaging our services, you agree to these terms.
+  </p>
+
+  <h2>2. Our services</h2>
+  <p>
+    We provide marketing services including sales funnels, copywriting, checkout pages,
+    websites, advertising and growth support. The exact scope, deliverables and timeline
+    of any engagement are agreed in a separate proposal or agreement.
+  </p>
+
+  <h2>3. Quotes, fees and payment</h2>
+  <p><code>[TODO: set out how quotes work, fees, payment terms, invoicing, late payment, and whether advertising spend is billed separately — note: ad spend is always paid by the client directly to the ad platform.]</code></p>
+
+  <h2>4. Client responsibilities</h2>
+  <ul>
+    <li>Provide accurate information and timely feedback.</li>
+    <li>Supply any access, assets or accounts needed to do the work.</li>
+    <li>Ensure the materials you provide do not infringe third-party rights.</li>
+  </ul>
+
+  <h2>5. Intellectual property</h2>
+  <p><code>[TODO: define who owns deliverables and when ownership transfers — typically on full payment — and any licences for tools or templates used.]</code></p>
+
+  <h2>6. Liability</h2>
+  <p><code>[TODO: limitation of liability. Marketing results depend on many factors; we do not guarantee specific revenue or performance. Have this clause reviewed by a legal professional.]</code></p>
+
+  <h2>7. Confidentiality</h2>
+  <p>Each party keeps the other's non-public information confidential and uses it only to perform the engagement.</p>
+
+  <h2>8. Governing law</h2>
+  <p>These terms are governed by the laws of the Netherlands. <code>[TODO: confirm competent court / jurisdiction.]</code></p>
+
+  <h2>9. Contact</h2>
+  <p>Questions about these terms? Contact us at {contactEmail}.</p>
+</LegalLayout>

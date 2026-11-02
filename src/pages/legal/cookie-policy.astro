@@ -1,0 +1,40 @@
+---
+import LegalLayout from '../../layouts/LegalLayout.astro';
+import { site } from '../../data/site';
+const contactEmail = site.email || '[TODO: email@gpmm.site]';
+---
+<LegalLayout
+  title="Cookie policy"
+  description="How GPMM uses cookies, and how you can control them."
+  updated="2 November 2026"
+>
+  <h2>1. What cookies are</h2>
+  <p>
+    Cookies are small files stored on your device that help a website function and remember
+    your preferences. Some are essential; others are optional and only used with your consent.
+  </p>
+
+  <h2>2. How we use cookies</h2>
+  <ul>
+    <li><strong>Essential cookies</strong> — needed to run the site and remember your cookie choice. These are always active.</li>
+    <li><strong>Analytics cookies (optional)</strong> — help us understand how the site is used. These load only after you accept. <code>[TODO: confirm analytics tool and cookie names once added.]</code></li>
+    <li><strong>Marketing cookies (optional)</strong> — such as the Meta Pixel, used for advertising. These load only after you accept. <code>[TODO: confirm if/when the Meta Pixel is used.]</code></li>
+  </ul>
+
+  <h2>3. Your choice</h2>
+  <p>
+    When you first visit, our cookie banner lets you accept or reject optional cookies. We do
+    not load analytics or marketing cookies until you accept. You can change your choice at any
+    time by clearing this site's data in your browser.
+  </p>
+
+  <h2>4. Cookies we set</h2>
+  <p>
+    We store your cookie choice locally in your browser (<code>gpmm-consent</code>) so we don't
+    ask you again on every visit.
+  </p>
+  <p><code>[TODO: list specific third-party cookies, their provider, purpose and retention once analytics or the Pixel are enabled.]</code></p>
+
+  <h2>5. More information</h2>
+  <p>See our <a href="/legal/privacy-policy">privacy policy</a> for how we handle personal data. Questions? Contact us at {contactEmail}.</p>
+</LegalLayout>

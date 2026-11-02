@@ -1,7 +1,7 @@
 export type IconName =
   | 'filter' | 'pen' | 'cart' | 'layout' | 'target' | 'trending-up' | 'shopping-bag'
   | 'menu' | 'close' | 'arrow-right' | 'check' | 'chevron-down'
-  | 'phone' | 'mail' | 'map-pin' | 'instagram' | 'linkedin' | 'whatsapp';
+  | 'phone' | 'mail' | 'map-pin' | 'instagram' | 'linkedin' | 'whatsapp' | 'user';
 
 // Line icons (Lucide-style, ISC-licensed geometry).
 export const lineIcons: Record<string, string> = {
@@ -22,6 +22,7 @@ export const lineIcons: Record<string, string> = {
   'map-pin': '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
   instagram: '<rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/>',
   linkedin: '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>',
+  user: '<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
 };
 
 // Filled brand glyphs.

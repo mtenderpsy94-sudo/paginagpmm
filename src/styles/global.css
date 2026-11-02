@@ -90,6 +90,15 @@ ul { margin: 0; padding: 0; }
 .btn--lg { padding: 1rem 1.7rem; font-size: var(--fs-base); }
 .btn .ic { width: 1.1em; height: 1.1em; }
 
+/* Shared section patterns */
+.sec-head { max-width: 640px; margin-bottom: 2.5rem; }
+.sec-head .lead { margin-bottom: 0; }
+.check-list { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+.check-list li { display: flex; align-items: flex-start; gap: 0.6rem; color: var(--body); font-size: var(--fs-sm); }
+.check-list .ic { color: var(--accent-strong); flex: none; margin-top: 0.15rem; }
+.check-list.two { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem 1.5rem; }
+@media (max-width: 560px) { .check-list.two { grid-template-columns: 1fr; } }
+
 /* Scroll reveal — only active when JS runs and motion is allowed */
 .reveal { opacity: 1; }
 html.js .reveal {
