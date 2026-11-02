@@ -23,7 +23,7 @@ const serviceLd = {
   serviceType: service.name,
   description: service.hero.subtitle,
   provider: { '@type': 'Organization', name: site.name, url: site.url },
-  areaServed: ['Netherlands', 'Belgium', 'Luxembourg'],
+  areaServed: 'Europe',
   url: new URL(`/services/${service.slug}`, site.url).href,
 };
 ---
@@ -125,7 +125,7 @@ const serviceLd = {
     </div>
   </section>
 
-  <CtaBand text={`Interested in ${service.name.toLowerCase()}? Start with a free funnel audit — a clear picture of your biggest opportunities, with no obligation.`} />
+  <CtaBand text={`Interested in ${service.name.toLowerCase()}? Start with a free funnel audit, a clear picture of your biggest opportunities, with no obligation.`} />
 </BaseLayout>
 
 <style>
