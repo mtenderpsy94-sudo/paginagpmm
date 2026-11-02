@@ -19,7 +19,8 @@ export const site = {
   whatsapp: {
     display: '+31 6 31 06 33 03',
     intl: '31631063303', // used in https://wa.me/<intl>
-    message: 'Hi GPMM',
+    message:
+      "Hi GPMM! I found you through your website and I'd like to know more about how you can help me grow my business. Could you tell me how it works and what the next steps are?",
   },
 
   legal: {
