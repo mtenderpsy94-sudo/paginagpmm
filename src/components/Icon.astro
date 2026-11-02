@@ -1,0 +1,32 @@
+---
+import { lineIcons, filledIcons, type IconName } from '../icons';
+
+interface Props {
+  name: IconName;
+  size?: number;
+  class?: string;
+  label?: string; // when set, icon is announced to screen readers
+}
+
+const { name, size = 24, class: cls = '', label } = Astro.props;
+
+const isFilled = name in filledIcons;
+const inner = isFilled ? filledIcons[name] : lineIcons[name];
+const a11y = label
+  ? { role: 'img', 'aria-label': label }
+  : { 'aria-hidden': 'true', focusable: 'false' };
+---
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill={isFilled ? 'currentColor' : 'none'}
+  stroke={isFilled ? 'none' : 'currentColor'}
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class={`ic ${cls}`}
+  {...a11y}
+  set:html={inner}
+/>

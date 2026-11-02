@@ -1,0 +1,146 @@
+---
+import { services, serviceBudgets } from '../data/services';
+const formName = 'free-funnel-audit';
+---
+<div class="form-wrap">
+  <form
+    name={formName}
+    method="POST"
+    data-netlify="true"
+    netlify-honeypot="bot-field"
+    class="audit-form"
+    id="audit-form"
+  >
+    <input type="hidden" name="form-name" value={formName} />
+    <p class="hp">
+      <label>Don’t fill this out if you’re human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+    </p>
+
+    <div class="grid-2">
+      <div class="field">
+        <label for="f-name">Name <span class="req" aria-hidden="true">*</span></label>
+        <input id="f-name" name="name" type="text" autocomplete="name" required />
+      </div>
+      <div class="field">
+        <label for="f-email">Email <span class="req" aria-hidden="true">*</span></label>
+        <input id="f-email" name="email" type="email" autocomplete="email" required />
+      </div>
+      <div class="field">
+        <label for="f-company">Company <span class="req" aria-hidden="true">*</span></label>
+        <input id="f-company" name="company" type="text" autocomplete="organization" required />
+      </div>
+      <div class="field">
+        <label for="f-website">Website</label>
+        <input id="f-website" name="website" type="url" inputmode="url" placeholder="https://" autocomplete="url" />
+      </div>
+      <div class="field">
+        <label for="f-phone">Phone</label>
+        <input id="f-phone" name="phone" type="tel" autocomplete="tel" />
+      </div>
+      <div class="field">
+        <label for="f-budget">Monthly marketing budget <span class="req" aria-hidden="true">*</span></label>
+        <select id="f-budget" name="budget" required>
+          <option value="" disabled selected>Select a range</option>
+          {serviceBudgets.map((b) => <option value={b}>{b}</option>)}
+        </select>
+      </div>
+    </div>
+
+    <fieldset class="field services">
+      <legend>Which service are you interested in?</legend>
+      <div class="chips">
+        {services.map((s) => (
+          <label class="chip">
+            <input type="checkbox" name="services" value={s.name} />
+            <span>{s.name}</span>
+          </label>
+        ))}
+      </div>
+    </fieldset>
+
+    <div class="field">
+      <label for="f-message">Message</label>
+      <textarea id="f-message" name="message" rows="4" placeholder="Tell us a bit about your offer and where you’re stuck."></textarea>
+    </div>
+
+    <label class="consent">
+      <input type="checkbox" name="consent" value="yes" required />
+      <span>I agree that GPMM may contact me about my request. See the <a href="/legal/privacy-policy">privacy policy</a>. <span class="req" aria-hidden="true">*</span></span>
+    </label>
+
+    <button type="submit" class="btn btn--primary btn--lg form-submit">Get your free funnel audit</button>
+    <p class="form-error" id="form-error" role="alert" hidden>Something went wrong. Please try again, or message us on WhatsApp.</p>
+  </form>
+
+  <div class="form-success" id="form-success" hidden role="status">
+    <h3>Thanks — we’ve got it.</h3>
+    <p>We’ll review your funnel and get back to you within two business days. Prefer to talk now? Message us on WhatsApp.</p>
+  </div>
+</div>
+
+<style>
+  .form-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: clamp(1.4rem, 3vw, 2.2rem); box-shadow: var(--shadow-md); }
+  .hp { position: absolute; left: -9999px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+  .field { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.1rem; min-width: 0; }
+  .grid-2 .field { margin-bottom: 0; }
+  label { font-size: var(--fs-sm); font-weight: 600; color: var(--heading); }
+  .req { color: var(--accent-strong); }
+  input, select, textarea {
+    font: inherit; font-size: var(--fs-sm); color: var(--heading); background: var(--bg);
+    border: 1px solid var(--border-strong); border-radius: var(--radius); padding: 0.7rem 0.85rem; width: 100%;
+  }
+  input:focus, select:focus, textarea:focus { outline: 3px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+  textarea { resize: vertical; }
+
+  .services { border: 0; padding: 0; margin: 0 0 1.1rem; }
+  .services legend { font-size: var(--fs-sm); font-weight: 600; color: var(--heading); padding: 0; margin-bottom: 0.6rem; }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .chip { display: inline-flex; align-items: center; gap: 0.45rem; border: 1px solid var(--border-strong); border-radius: var(--radius-pill); padding: 0.45rem 0.9rem; cursor: pointer; font-weight: 500; }
+  .chip input { width: auto; accent-color: var(--accent-strong); }
+  .chip:has(input:checked) { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-ink); }
+
+  .consent { display: flex; gap: 0.6rem; align-items: flex-start; font-weight: 400; font-size: var(--fs-sm); color: var(--body); margin-bottom: 1.3rem; }
+  .consent input { width: auto; margin-top: 0.2rem; accent-color: var(--accent-strong); }
+  .form-submit { width: 100%; justify-content: center; }
+  .form-error { color: #B00020; font-size: var(--fs-sm); margin: 0.9rem 0 0; }
+
+  .form-success { text-align: center; padding: 1rem 0; }
+  .form-success h3 { color: var(--accent-strong); }
+
+  @media (max-width: 560px) { .grid-2 { grid-template-columns: 1fr; gap: 1.1rem; } }
+</style>
+
+<script>
+  const form = document.getElementById('audit-form') as HTMLFormElement | null;
+  const success = document.getElementById('form-success');
+  const error = document.getElementById('form-error');
+
+  const encode = (data: FormData) => {
+    const params = new URLSearchParams();
+    data.forEach((value, key) => params.append(key, value.toString()));
+    return params.toString();
+  };
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (error) error.hidden = true;
+    if (!form.reportValidity()) return;
+    const submitBtn = form.querySelector<HTMLButtonElement>('.form-submit');
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
+    try {
+      const res = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encode(new FormData(form)),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      form.hidden = true;
+      if (success) success.hidden = false;
+      success?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch {
+      if (error) error.hidden = false;
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Get your free funnel audit'; }
+    }
+  });
+</script>

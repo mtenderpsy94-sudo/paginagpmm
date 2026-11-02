@@ -1,19 +1,228 @@
 ---
-import { site } from '../data/site';
----
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import FunnelDiagram from '../components/FunnelDiagram.astro';
+import AuditForm from '../components/AuditForm.astro';
+import Icon from '../components/Icon.astro';
+import { services } from '../data/services';
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{site.name} — {site.tagline}</title>
-    <meta name="description" content="GPMM builds measurable sales systems — funnel, copy, checkout, web and ads working as one." />
-  </head>
-  <body>
-    <main>
-      <h1>GPMM</h1>
-      <p>Site under construction. Design system and home page coming next.</p>
-    </main>
-  </body>
-</html>
+const disciplines = [
+  { icon: 'filter', label: 'Funnel' },
+  { icon: 'pen', label: 'Copy' },
+  { icon: 'cart', label: 'Checkout' },
+  { icon: 'layout', label: 'Web' },
+  { icon: 'target', label: 'Ads' },
+  { icon: 'trending-up', label: 'Content' },
+] as const;
+
+const steps = [
+  { n: '01', title: 'Audit', when: 'Week 1', body: 'We map your funnel, traffic and numbers to find exactly where money is leaking.' },
+  { n: '02', title: 'Strategy', when: 'Week 1–2', body: 'A clear plan: offer, funnel structure, copy angles and the channels that fit you.' },
+  { n: '03', title: 'Build', when: 'Weeks 2–5', body: 'We design, write and ship the full system — pages, checkout, emails and tracking.' },
+  { n: '04', title: 'Scale', when: 'Ongoing', body: 'We test, optimize and scale what works, month over month.' },
+];
+
+const auditIncludes = [
+  'A teardown of your funnel and offer',
+  'A check of your traffic and tracking setup',
+  'Three quick wins you can apply right away',
+  'A 30-minute strategy call',
+];
+---
+<BaseLayout
+  title="GPMM — Funnel & growth agency"
+  description="GPMM builds measurable sales systems — funnel, copy, checkout, web and ads — that turn cold traffic into paying customers. Based in the Netherlands, serving the Benelux."
+>
+  <!-- 1. HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Funnel &amp; growth agency</p>
+        <h1>Turn cold traffic into <span class="hl">paying customers</span>.</h1>
+        <p class="lead">GPMM builds the sales system behind your growth — funnel, copy, checkout, web and ads working as one. For info-products, creators, coaches and e-commerce.</p>
+        <div class="hero-cta">
+          <a href="/free-funnel-audit" class="btn btn--primary btn--lg">Get your free funnel audit</a>
+          <a href="/our-approach" class="btn btn--ghost btn--lg">See how we work</a>
+        </div>
+        <p class="hero-note muted">Based in the Netherlands · Working with clients across the Benelux</p>
+      </div>
+
+      <aside class="hero-card reveal" aria-label="What the free funnel audit includes">
+        <p class="hc-title">Your free funnel audit includes</p>
+        <ul class="hc-list">
+          {auditIncludes.map((item) => (
+            <li><Icon name="check" size={18} /> {item}</li>
+          ))}
+        </ul>
+        <a href="/free-funnel-audit" class="btn btn--primary hc-btn">Claim your audit</a>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 2. MANIFESTO -->
+  <section class="section section--alt">
+    <div class="container narrow manifesto reveal">
+      <p class="eyebrow">What we believe</p>
+      <p class="manifesto-text">Likes don't pay the bills. We build <span class="hl">measurable sales systems</span> — every euro of traffic tracked from the first click to the repeat purchase. If it can't be measured, it can't be scaled.</p>
+      <p class="slogan">“We build sales systems, not vanity metrics.”</p>
+    </div>
+  </section>
+
+  <!-- 3. YOUR OWN GROWTH TEAM -->
+  <section class="section">
+    <div class="container">
+      <div class="sec-head reveal">
+        <p class="eyebrow">Your own growth team</p>
+        <h2>One team. One system. <span class="hl">Every part pulling together.</span></h2>
+        <p class="lead muted">Most businesses buy funnel, copy, checkout, web, ads and content from different people who never talk to each other. We run them as a single system, so every piece reinforces the next.</p>
+      </div>
+
+      <ul class="disciplines reveal">
+        {disciplines.map((d) => (
+          <li>
+            <span class="d-ic"><Icon name={d.icon} size={22} /></span>
+            {d.label}
+          </li>
+        ))}
+      </ul>
+
+      <FunnelDiagram />
+      <p class="funnel-caption muted reveal">From the first ad click to a customer who buys again — designed, built and tracked end to end.</p>
+    </div>
+  </section>
+
+  <!-- 4. SERVICES -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="sec-head reveal">
+        <p class="eyebrow">Services</p>
+        <h2>Everything you need to <span class="hl">sell online</span></h2>
+        <p class="lead muted">Pick one piece or the whole system. Each service is built to connect with the others.</p>
+      </div>
+      <div class="services-grid">
+        {services.map((s) => <ServiceCard service={s} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. PROCESS -->
+  <section class="section">
+    <div class="container">
+      <div class="sec-head reveal">
+        <p class="eyebrow">How we work</p>
+        <h2>A clear path from <span class="hl">leak to scale</span></h2>
+      </div>
+      <ol class="process">
+        {steps.map((s) => (
+          <li class="step reveal">
+            <span class="step-n">{s.n}</span>
+            <div class="step-body">
+              <div class="step-head">
+                <h3>{s.title}</h3>
+                <span class="step-when">{s.when}</span>
+              </div>
+              <p class="muted">{s.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <p class="process-link reveal"><a href="/our-approach">See our full approach <Icon name="arrow-right" size={16} /></a></p>
+    </div>
+  </section>
+
+  <!-- 6. FOUNDING CLIENTS -->
+  <section class="founding">
+    <div class="container narrow founding-inner reveal">
+      <p class="eyebrow">Founding clients</p>
+      <h2>Be one of our <span class="hl">first five</span></h2>
+      <p class="lead">We're onboarding 5 founding clients in the Benelux at preferential terms, in exchange for documented case studies. If you have a real offer and room to grow, this is the moment to work with us.</p>
+      <a href="/free-funnel-audit" class="btn btn--primary btn--lg">Apply as a founding client</a>
+    </div>
+  </section>
+
+  <!-- 7. FINAL CTA + FORM -->
+  <section class="section section--alt" id="audit">
+    <div class="container audit-grid">
+      <div class="audit-copy reveal">
+        <p class="eyebrow">Free funnel audit</p>
+        <h2>Let's find what's <span class="hl">leaking</span> — for free</h2>
+        <p class="lead muted">Tell us about your offer and we'll review your funnel. No obligation, no hard sell — just a clear picture of your biggest opportunities.</p>
+        <ul class="audit-list">
+          {auditIncludes.map((item) => (<li><Icon name="check" size={18} /> {item}</li>))}
+        </ul>
+      </div>
+      <div class="audit-form-col reveal">
+        <AuditForm />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* HERO */
+  .hero { padding-block: clamp(2.5rem, 6vw, 5rem); }
+  .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  .hero-copy h1 { margin-bottom: 1rem; }
+  .hero-copy .lead { max-width: 46ch; margin-bottom: 1.8rem; }
+  .hero-cta { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1.4rem; }
+  .hero-note { font-size: var(--fs-sm); }
+
+  .hero-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.6rem; box-shadow: var(--shadow-md); }
+  .hc-title { font-family: var(--font-display); font-weight: 600; color: var(--heading); font-size: var(--fs-lg); margin: 0 0 1rem; }
+  .hc-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; margin: 0 0 1.4rem; }
+  .hc-list li { display: flex; align-items: flex-start; gap: 0.6rem; font-size: var(--fs-sm); color: var(--body); }
+  .hc-list .ic { color: var(--accent-strong); flex: none; margin-top: 0.15rem; }
+  .hc-btn { width: 100%; justify-content: center; }
+
+  /* MANIFESTO */
+  .manifesto { text-align: center; }
+  .manifesto-text { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.4rem, 1rem + 2vw, 2.1rem); line-height: 1.3; color: var(--heading); letter-spacing: -0.01em; text-wrap: balance; }
+  .slogan { font-family: var(--font-display); font-weight: 500; font-size: var(--fs-lg); color: var(--accent-strong); margin-top: 1.5rem; }
+
+  /* SECTION HEADS */
+  .sec-head { max-width: 640px; margin-bottom: 2.5rem; }
+  .sec-head .lead { margin-bottom: 0; }
+
+  /* DISCIPLINES */
+  .disciplines { list-style: none; display: flex; flex-wrap: wrap; gap: 0.7rem; margin-bottom: 1rem; }
+  .disciplines li { display: inline-flex; align-items: center; gap: 0.55rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 0.55rem 1.1rem; font-family: var(--font-display); font-weight: 600; font-size: var(--fs-sm); color: var(--heading); }
+  .d-ic { color: var(--accent-strong); display: inline-grid; place-items: center; }
+  .funnel-caption { text-align: center; max-width: 52ch; margin: 1.6rem auto 0; font-size: var(--fs-sm); }
+
+  /* SERVICES */
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.1rem; }
+
+  /* PROCESS */
+  .process { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.6rem 2.5rem; counter-reset: none; }
+  .step { display: flex; gap: 1.1rem; align-items: flex-start; }
+  .step-n { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; color: var(--accent-strong); background: var(--accent-soft); width: 46px; height: 46px; border-radius: var(--radius); display: grid; place-items: center; flex: none; font-variant-numeric: tabular-nums; }
+  .step-head { display: flex; align-items: baseline; gap: 0.8rem; flex-wrap: wrap; }
+  .step-head h3 { margin: 0; font-size: var(--fs-lg); }
+  .step-when { font-size: 0.8rem; font-weight: 600; color: var(--accent-ink); background: var(--accent-soft); padding: 0.2rem 0.6rem; border-radius: var(--radius-pill); }
+  .step-body p { margin: 0.4rem 0 0; font-size: var(--fs-sm); }
+  .process-link { margin-top: 2.2rem; }
+  .process-link a { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 600; }
+
+  /* FOUNDING */
+  .founding { background: var(--accent-soft); padding-block: clamp(3.5rem, 7vw, 5.5rem); }
+  .founding-inner { text-align: center; }
+  .founding-inner .lead { max-width: 54ch; margin-inline: auto; margin-bottom: 1.8rem; color: var(--body); }
+
+  /* AUDIT */
+  .audit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 3.5rem); align-items: start; }
+  .audit-copy { position: sticky; top: 92px; }
+  .audit-copy .lead { margin-bottom: 1.5rem; }
+  .audit-list { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .audit-list li { display: flex; align-items: flex-start; gap: 0.6rem; font-size: var(--fs-sm); color: var(--body); }
+  .audit-list .ic { color: var(--accent-strong); flex: none; margin-top: 0.15rem; }
+
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-card { order: 2; }
+    .audit-grid { grid-template-columns: 1fr; }
+    .audit-copy { position: static; }
+  }
+  @media (max-width: 640px) {
+    .process { grid-template-columns: 1fr; }
+  }
+</style>

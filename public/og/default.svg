@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="GPMM — funnel and growth agency">
+  <rect width="1200" height="630" fill="#FBF6F2"/>
+  <rect x="64" y="64" width="1072" height="502" rx="28" fill="#FFFFFF" stroke="#EFE7E1" stroke-width="2"/>
+  <text x="112" y="180" font-family="'Space Grotesk', system-ui, sans-serif" font-weight="700" font-size="64" fill="#1E1A17">GPMM<tspan fill="#EF5A2E">.</tspan></text>
+  <text x="112" y="300" font-family="'Space Grotesk', system-ui, sans-serif" font-weight="700" font-size="72" fill="#1E1A17">Turn cold traffic into</text>
+  <text x="112" y="390" font-family="'Space Grotesk', system-ui, sans-serif" font-weight="700" font-size="72" fill="#EF5A2E">paying customers.</text>
+  <text x="112" y="480" font-family="Inter, system-ui, sans-serif" font-size="32" fill="#5B534C">Funnel &amp; growth agency · Netherlands &amp; Benelux</text>
+</svg>

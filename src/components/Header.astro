@@ -1,0 +1,215 @@
+---
+import { services } from '../data/services';
+import Icon from './Icon.astro';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => path === href.replace(/\/$/, '');
+---
+<header class="site-header">
+  <div class="container bar">
+    <a href="/" class="logo" aria-label="GPMM home">GPMM<span class="dot">.</span></a>
+
+    <nav class="desk-nav" aria-label="Primary">
+      <ul>
+        <li><a href="/our-approach" class:list={[{ current: isActive('/our-approach') }]}>Our approach</a></li>
+        <li class="has-mega">
+          <button type="button" class="mega-trigger" aria-expanded="false" aria-controls="mega-services">
+            Services <Icon name="chevron-down" size={16} class="chev" />
+          </button>
+          <div class="mega" id="mega-services">
+            <div class="container mega-inner">
+              <div class="mega-grid">
+                {services.map((s) => (
+                  <a href={`/services/${s.slug}`} class="mega-card">
+                    <span class="mega-ic"><Icon name={s.icon} size={20} /></span>
+                    <span class="mega-txt">
+                      <strong>{s.name}</strong>
+                      <span>{s.menuBlurb}</span>
+                    </span>
+                  </a>
+                ))}
+              </div>
+              <a href="/services" class="mega-all">All services <Icon name="arrow-right" size={16} /></a>
+            </div>
+          </div>
+        </li>
+        <li><a href="/about" class:list={[{ current: isActive('/about') }]}>About</a></li>
+        <li><a href="/free-funnel-audit" class:list={[{ current: isActive('/free-funnel-audit') }]}>Contact</a></li>
+      </ul>
+    </nav>
+
+    <a href="/free-funnel-audit" class="btn btn--primary header-cta">Free funnel audit</a>
+
+    <button type="button" class="hamburger" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+      <Icon name="menu" size={26} />
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu" hidden>
+    <nav aria-label="Mobile">
+      <a href="/our-approach" class="m-link">Our approach</a>
+      <button type="button" class="m-link m-accordion" aria-expanded="false" aria-controls="m-services">
+        Services <Icon name="chevron-down" size={20} class="chev" />
+      </button>
+      <div class="m-sub" id="m-services" hidden>
+        {services.map((s) => (
+          <a href={`/services/${s.slug}`} class="m-sublink">{s.name}</a>
+        ))}
+        <a href="/services" class="m-sublink m-sub-all">All services</a>
+      </div>
+      <a href="/about" class="m-link">About</a>
+      <a href="/free-funnel-audit" class="m-link">Contact</a>
+      <a href="/free-funnel-audit" class="btn btn--primary btn--lg m-cta">Free funnel audit</a>
+    </nav>
+  </div>
+
+<style>
+  .site-header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: saturate(150%) blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .bar { display: flex; align-items: center; gap: 1rem; min-height: 68px; }
+
+  .logo {
+    font-family: var(--font-display); font-weight: 700; font-size: 1.4rem;
+    color: var(--heading); letter-spacing: -0.03em; text-decoration: none; margin-right: auto;
+  }
+  .logo:hover { text-decoration: none; }
+  .logo .dot { color: var(--accent); }
+
+  .desk-nav { display: none; }
+  .desk-nav ul { list-style: none; display: flex; align-items: center; gap: 0.3rem; }
+  .desk-nav a, .mega-trigger {
+    display: inline-flex; align-items: center; gap: 0.25rem;
+    font: inherit; font-size: var(--fs-sm); font-weight: 500; color: var(--heading);
+    background: none; border: 0; cursor: pointer; padding: 0.5rem 0.8rem;
+    border-radius: var(--radius); text-decoration: none;
+  }
+  .desk-nav a:hover, .mega-trigger:hover { background: var(--accent-soft); color: var(--accent-ink); text-decoration: none; }
+  .desk-nav a.current { color: var(--accent-strong); }
+  .chev { transition: transform 0.2s var(--ease); }
+
+  /* Mega menu */
+  .has-mega { position: static; }
+  .mega {
+    position: absolute; left: 0; right: 0; top: 100%;
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
+    opacity: 0; visibility: hidden; transform: translateY(-8px);
+    transition: opacity 0.18s var(--ease), transform 0.18s var(--ease), visibility 0.18s;
+  }
+  .has-mega:hover .mega,
+  .has-mega:focus-within .mega,
+  .mega.open { opacity: 1; visibility: visible; transform: none; }
+  .has-mega:hover .chev,
+  .has-mega:focus-within .chev,
+  .mega-trigger[aria-expanded="true"] .chev { transform: rotate(180deg); }
+  .mega-inner { padding-block: 1.6rem; }
+  .mega-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.4rem; }
+  .mega-card {
+    display: flex; gap: 0.8rem; padding: 0.9rem; border-radius: var(--radius);
+    text-decoration: none; align-items: flex-start;
+  }
+  .mega-card:hover { background: var(--bg-alt); text-decoration: none; }
+  .mega-ic {
+    flex: none; width: 40px; height: 40px; border-radius: var(--radius);
+    background: var(--accent-soft); color: var(--accent-strong);
+    display: grid; place-items: center;
+  }
+  .mega-txt { display: flex; flex-direction: column; }
+  .mega-txt strong { color: var(--heading); font-weight: 600; font-size: var(--fs-sm); }
+  .mega-txt span { color: var(--muted); font-size: 0.85rem; line-height: 1.4; }
+  .mega-all {
+    display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1.1rem;
+    font-weight: 600; font-size: var(--fs-sm); color: var(--accent-strong);
+  }
+
+  .header-cta { display: none; padding: 0.6rem 1.1rem; }
+
+  .hamburger {
+    display: inline-flex; margin-left: auto; background: none; border: 0;
+    color: var(--heading); cursor: pointer; padding: 0.4rem; border-radius: var(--radius);
+  }
+  .hamburger:hover { background: var(--accent-soft); color: var(--accent-ink); }
+
+  /* Mobile menu */
+  .mobile-menu {
+    position: fixed; inset: 68px 0 0; background: var(--bg); z-index: 99;
+    overflow-y: auto; padding: 1rem var(--gutter) 2.5rem;
+  }
+  .mobile-menu nav { display: flex; flex-direction: column; gap: 0.2rem; }
+  .m-link {
+    display: flex; align-items: center; justify-content: space-between; width: 100%;
+    font: inherit; font-family: var(--font-display); font-size: 1.4rem; font-weight: 600;
+    color: var(--heading); background: none; border: 0; border-bottom: 1px solid var(--border);
+    padding: 1rem 0; cursor: pointer; text-decoration: none; text-align: left;
+  }
+  .m-link:hover { text-decoration: none; }
+  .m-accordion[aria-expanded="true"] .chev { transform: rotate(180deg); }
+  .m-sub { display: flex; flex-direction: column; padding: 0.4rem 0 0.6rem 0.4rem; }
+  .m-sub[hidden] { display: none; }
+  .m-sublink {
+    padding: 0.6rem 0; color: var(--body); font-size: var(--fs-base); text-decoration: none;
+  }
+  .m-sublink:hover { color: var(--accent-strong); text-decoration: none; }
+  .m-sub-all { color: var(--accent-strong); font-weight: 600; }
+  .m-cta { margin-top: 1.4rem; justify-content: center; }
+
+  body.menu-open { overflow: hidden; }
+
+  @media (min-width: 960px) {
+    .desk-nav { display: block; }
+    .header-cta { display: inline-flex; }
+    .hamburger, .mobile-menu { display: none; }
+  }
+</style>
+
+<script>
+  // Desktop mega menu (click = toggle; CSS handles hover/focus)
+  const megaTrigger = document.querySelector<HTMLButtonElement>('.mega-trigger');
+  const mega = document.querySelector<HTMLElement>('.mega');
+  megaTrigger?.addEventListener('click', () => {
+    const open = mega?.classList.toggle('open') ?? false;
+    megaTrigger.setAttribute('aria-expanded', String(open));
+  });
+  document.addEventListener('click', (e) => {
+    if (mega?.classList.contains('open') && !(e.target as Element)?.closest('.has-mega')) {
+      mega.classList.remove('open');
+      megaTrigger?.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Mobile menu
+  const hamburger = document.querySelector<HTMLButtonElement>('.hamburger');
+  const mobile = document.querySelector<HTMLElement>('.mobile-menu');
+  const setMenu = (open: boolean) => {
+    if (!mobile || !hamburger) return;
+    mobile.hidden = !open;
+    hamburger.setAttribute('aria-expanded', String(open));
+    hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.body.classList.toggle('menu-open', open);
+  };
+  hamburger?.addEventListener('click', () => setMenu(mobile?.hidden ?? true));
+
+  // Mobile services accordion
+  const acc = document.querySelector<HTMLButtonElement>('.m-accordion');
+  const sub = document.querySelector<HTMLElement>('.m-sub');
+  acc?.addEventListener('click', () => {
+    if (!sub) return;
+    const open = sub.hidden;
+    sub.hidden = !open;
+    acc.setAttribute('aria-expanded', String(open));
+  });
+
+  // Close everything on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      setMenu(false);
+      mega?.classList.remove('open');
+      megaTrigger?.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>

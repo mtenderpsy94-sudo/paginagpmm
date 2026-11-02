@@ -1,0 +1,31 @@
+---
+import Icon from './Icon.astro';
+const steps = ['Cold traffic', 'Landing page', 'Checkout', 'Upsell', 'Email follow-up', 'Repeat customer'];
+---
+<div class="funnel reveal" role="img" aria-label="Funnel flow: cold traffic to landing page to checkout to upsell to email follow-up to repeat customer.">
+  {steps.map((step, i) => (
+    <>
+      <span class:list={['node', { 'node--end': i === steps.length - 1 }]}>{step}</span>
+      {i < steps.length - 1 && <span class="arrow" aria-hidden="true"><Icon name="arrow-right" size={18} /></span>}
+    </>
+  ))}
+</div>
+
+<style>
+  .funnel {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+    gap: 0.5rem 0.4rem; margin-top: 2rem;
+  }
+  .node {
+    background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius-pill);
+    padding: 0.6rem 1.1rem; font-family: var(--font-display); font-weight: 600; font-size: var(--fs-sm);
+    color: var(--heading); white-space: nowrap; box-shadow: var(--shadow-sm);
+  }
+  .node--end { background: var(--accent-strong); border-color: var(--accent-strong); color: #fff; }
+  .arrow { color: var(--accent); display: inline-grid; place-items: center; }
+  @media (max-width: 640px) {
+    .funnel { flex-direction: column; }
+    .node { width: 100%; max-width: 280px; text-align: center; }
+    .arrow { transform: rotate(90deg); }
+  }
+</style>

@@ -12,5 +12,8 @@
   "dependencies": {
     "astro": "^5.14.0",
     "@astrojs/sitemap": "^3.4.0"
+  },
+  "overrides": {
+    "rollup": "npm:@rollup/wasm-node@4.67.4"
   }
 }

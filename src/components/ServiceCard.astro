@@ -1,0 +1,32 @@
+---
+import type { Service } from '../data/services';
+import Icon from './Icon.astro';
+
+interface Props { service: Service; }
+const { service } = Astro.props;
+---
+<a href={`/services/${service.slug}`} class="service-card reveal">
+  <span class="sc-ic"><Icon name={service.icon} size={24} /></span>
+  <h3>{service.name}</h3>
+  <p>{service.benefit}</p>
+  <span class="sc-link">Learn more <Icon name="arrow-right" size={16} /></span>
+</a>
+
+<style>
+  .service-card {
+    display: flex; flex-direction: column; align-items: flex-start;
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
+    padding: 1.6rem; text-decoration: none; box-shadow: var(--shadow-sm);
+    transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease), transform 0.2s var(--ease);
+  }
+  .service-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-md); transform: translateY(-3px); text-decoration: none; }
+  @media (prefers-reduced-motion: reduce) { .service-card:hover { transform: none; } }
+  .sc-ic {
+    width: 52px; height: 52px; border-radius: var(--radius); background: var(--accent-soft);
+    color: var(--accent-strong); display: grid; place-items: center; margin-bottom: 1.1rem;
+  }
+  .service-card h3 { font-size: var(--fs-lg); margin: 0 0 0.5rem; }
+  .service-card p { color: var(--muted); font-size: var(--fs-sm); margin: 0 0 1.2rem; flex: 1; }
+  .sc-link { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--accent-strong); font-weight: 600; font-size: var(--fs-sm); }
+  .service-card:hover .sc-link .ic { transform: translateX(3px); transition: transform 0.2s var(--ease); }
+</style>

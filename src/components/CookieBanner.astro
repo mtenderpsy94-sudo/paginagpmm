@@ -1,0 +1,59 @@
+---
+// GDPR/AVG cookie banner. No analytics or Meta Pixel load until the user accepts.
+// The choice is stored in localStorage as "gpmm-consent" = "accepted" | "rejected".
+---
+<div class="cookie" id="cookie-banner" hidden role="dialog" aria-live="polite" aria-label="Cookie consent">
+  <p>
+    We use essential cookies to run this site. With your consent we also use analytics to improve it.
+    See our <a href="/legal/cookie-policy">cookie policy</a>.
+  </p>
+  <div class="cookie-actions">
+    <button type="button" class="btn btn--ghost" data-consent="rejected">Reject</button>
+    <button type="button" class="btn btn--primary" data-consent="accepted">Accept</button>
+  </div>
+</div>
+
+<style>
+  .cookie {
+    position: fixed; z-index: 95;
+    left: max(1.1rem, env(safe-area-inset-left, 0px));
+    bottom: max(1.1rem, env(safe-area-inset-bottom, 0px));
+    width: min(420px, calc(100vw - 2.2rem));
+    background: var(--surface); border: 1px solid var(--border-strong);
+    border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+    padding: 1.2rem 1.3rem;
+  }
+  .cookie p { font-size: var(--fs-sm); margin: 0 0 1rem; color: var(--body); }
+  .cookie-actions { display: flex; gap: 0.6rem; justify-content: flex-end; }
+  .cookie-actions .btn { padding: 0.6rem 1.1rem; }
+  @media (max-width: 480px) { .cookie-actions { justify-content: stretch; } .cookie-actions .btn { flex: 1; } }
+</style>
+
+<script>
+  const KEY = 'gpmm-consent';
+  const banner = document.getElementById('cookie-banner');
+  const read = () => { try { return localStorage.getItem(KEY); } catch { return null; } };
+  const write = (v: string) => { try { localStorage.setItem(KEY, v); } catch { /* ignore */ } };
+
+  function loadAnalytics() {
+    // Consent granted — this is where analytics / Meta Pixel would load.
+    // Intentionally empty until those tools are added.
+  }
+
+  if (banner) {
+    const choice = read();
+    if (!choice) {
+      banner.hidden = false;
+    } else if (choice === 'accepted') {
+      loadAnalytics();
+    }
+    banner.querySelectorAll<HTMLButtonElement>('[data-consent]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const value = btn.dataset.consent!;
+        write(value);
+        banner.hidden = true;
+        if (value === 'accepted') loadAnalytics();
+      });
+    });
+  }
+</script>

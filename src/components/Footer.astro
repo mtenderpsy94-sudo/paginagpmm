@@ -1,0 +1,99 @@
+---
+import { site } from '../data/site';
+import { services } from '../data/services';
+import Icon from './Icon.astro';
+
+const year = new Date().getFullYear();
+const wa = `https://wa.me/${site.whatsapp.intl}?text=${encodeURIComponent(site.whatsapp.message)}`;
+const hasSocials = site.socials.instagram || site.socials.linkedin;
+---
+<footer class="site-footer">
+  <div class="container foot-grid">
+    <div class="foot-brand">
+      <a href="/" class="logo" aria-label="GPMM home">GPMM<span class="dot">.</span></a>
+      <p class="muted">Funnel &amp; growth agency. We build measurable sales systems for info-products, creators, coaches and e-commerce.</p>
+      {hasSocials && (
+        <div class="socials">
+          {site.socials.instagram && (
+            <a href={site.socials.instagram} aria-label="GPMM on Instagram" rel="me noopener" target="_blank"><Icon name="instagram" size={20} /></a>
+          )}
+          {site.socials.linkedin && (
+            <a href={site.socials.linkedin} aria-label="GPMM on LinkedIn" rel="me noopener" target="_blank"><Icon name="linkedin" size={20} /></a>
+          )}
+        </div>
+      )}
+    </div>
+
+    <nav class="foot-col" aria-label="Services">
+      <h4>Services</h4>
+      <ul>
+        {services.map((s) => (
+          <li><a href={`/services/${s.slug}`}>{s.name}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <nav class="foot-col" aria-label="Company">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="/our-approach">Our approach</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/free-funnel-audit">Free funnel audit</a></li>
+        <li><a href="/legal/privacy-policy">Privacy policy</a></li>
+        <li><a href="/legal/terms">Terms</a></li>
+        <li><a href="/legal/cookie-policy">Cookie policy</a></li>
+      </ul>
+    </nav>
+
+    <div class="foot-col">
+      <h4>Contact</h4>
+      <ul class="contact">
+        <li><a href={wa}><Icon name="whatsapp" size={18} /> WhatsApp</a></li>
+        {site.email && (
+          <li><a href={`mailto:${site.email}`}><Icon name="mail" size={18} /> {site.email}</a></li>
+        )}
+        <li><span><Icon name="map-pin" size={18} /> {site.location}</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container foot-bottom">
+    <p>© {year} {site.name}. All rights reserved.</p>
+    <p class="legal-ids">KvK {site.legal.kvk} · BTW {site.legal.btw}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer { background: var(--bg-alt); border-top: 1px solid var(--border); padding-block: clamp(2.5rem, 5vw, 4rem) 1.5rem; }
+  .logo { font-family: var(--font-display); font-weight: 700; font-size: 1.4rem; color: var(--heading); letter-spacing: -0.03em; }
+  .logo .dot { color: var(--accent); }
+  .logo:hover { text-decoration: none; }
+
+  .foot-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 2rem 1.5rem; }
+  .foot-brand p { max-width: 34ch; margin: 1rem 0 1.2rem; font-size: var(--fs-sm); }
+  .socials { display: flex; gap: 0.6rem; }
+  .socials a {
+    width: 40px; height: 40px; border-radius: var(--radius); display: grid; place-items: center;
+    background: var(--surface); border: 1px solid var(--border); color: var(--heading);
+  }
+  .socials a:hover { color: var(--accent-strong); border-color: var(--border-strong); }
+
+  .foot-col h4 { font-family: var(--font-body); font-size: var(--fs-eyebrow); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 1rem; }
+  .foot-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .foot-col a { color: var(--body); font-size: var(--fs-sm); text-decoration: none; }
+  .foot-col a:hover { color: var(--accent-strong); }
+  .contact a, .contact span { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--body); font-size: var(--fs-sm); }
+  .contact a:hover { color: var(--accent-strong); }
+  .contact .ic { color: var(--accent-strong); flex: none; }
+
+  .foot-bottom {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;
+    margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border);
+    font-size: 0.85rem; color: var(--muted);
+  }
+  .foot-bottom p { margin: 0; }
+  .legal-ids { font-variant-numeric: tabular-nums; }
+
+  @media (max-width: 860px) { .foot-grid { grid-template-columns: 1fr 1fr; } .foot-brand { grid-column: 1 / -1; } }
+  @media (max-width: 480px) { .foot-grid { grid-template-columns: 1fr; } }
+</style>
