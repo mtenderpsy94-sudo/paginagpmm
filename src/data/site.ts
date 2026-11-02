@@ -14,8 +14,7 @@ export const site = {
   founder: 'Ender Muñoz',
   location: 'Netherlands',
 
-  // [TODO: email on @gpmm.site domain — not created yet. Leave empty for now.]
-  email: '',
+  email: 'support@gpmm.site',
 
   whatsapp: {
     display: '+31 6 31 06 33 03',
