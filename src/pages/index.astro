@@ -47,7 +47,9 @@ const auditIncludes = [
         <p class="hero-note muted">Based in the Netherlands · Working with clients across Europe</p>
       </div>
 
-      <aside class="hero-card reveal" aria-label="What the free funnel audit includes">
+      <div class="hero-right">
+        <img src="/images/ender.png" alt="Ender Muñoz, founder of GPMM" class="hero-photo reveal" width="1920" height="1080" fetchpriority="high" decoding="async" />
+        <aside class="hero-card reveal" aria-label="What the free funnel audit includes">
         <p class="hc-title">Your free funnel audit includes</p>
         <ul class="hc-list">
           {auditIncludes.map((item) => (
@@ -55,7 +57,8 @@ const auditIncludes = [
           ))}
         </ul>
         <a href="/free-funnel-audit" class="btn btn--primary hc-btn">Claim your audit</a>
-      </aside>
+        </aside>
+      </div>
     </div>
   </section>
 
@@ -151,11 +154,13 @@ const auditIncludes = [
 <style>
   /* HERO */
   .hero { padding-block: clamp(2.5rem, 6vw, 5rem); }
-  .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
   .hero-copy h1 { margin-bottom: 1rem; }
   .hero-copy .lead { max-width: 46ch; margin-bottom: 1.8rem; }
   .hero-cta { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1.4rem; }
   .hero-note { font-size: var(--fs-sm); }
+  .hero-right { display: flex; flex-direction: column; gap: 1.1rem; }
+  .hero-photo { width: 100%; height: auto; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); display: block; }
 
   .hero-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.6rem; box-shadow: var(--shadow-md); }
   .hc-title { font-family: var(--font-display); font-weight: 600; color: var(--heading); font-size: var(--fs-lg); margin: 0 0 1rem; }
