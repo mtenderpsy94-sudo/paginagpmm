@@ -1,0 +1,8 @@
+# Cloudflare Pages headers (same as the old netlify.toml)
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/favicon.svg
+  Cache-Control: public, max-age=604800

@@ -17,6 +17,10 @@ export const site = {
 
   email: 'support@gpmm.site',
 
+  // Web3Forms access key (https://web3forms.com): contact form submissions are emailed to
+  // the address the key was created with. It's a public key, safe to keep in the page.
+  web3formsKey: '', // [TODO: paste the key from web3forms.com]
+
   whatsapp: {
     display: '+31 6 31 06 33 03',
     intl: '31631063303', // used in https://wa.me/<intl>

@@ -1,40 +1,33 @@
 # Deploying gpmm.site
 
-The site is a static Astro build. Recommended host: **Netlify** (because the
-funnel-audit form uses Netlify Forms — no backend needed).
+The site is a static Astro build hosted on **Cloudflare Pages** (free, auto-deploys
+on every push to `main`). The contact forms send through **Web3Forms** (free), which
+emails each submission to you. Security headers live in `public/_headers`.
 
-## Option A — Netlify + GitHub (recommended, auto-deploys on every push)
+## 1. Web3Forms (contact forms)
 
-1. Go to <https://app.netlify.com> and log in (you can sign in with GitHub).
-2. **Add new site → Import an existing project → Deploy with GitHub.**
-3. Authorize Netlify and pick the repo `mtenderpsy94-sudo/paginagpmm`.
-4. Netlify reads `netlify.toml` automatically:
-   - Build command: `npm run build`
-   - Publish directory: `dist`
-   Click **Deploy**. First build gives a URL like `something.netlify.app`.
-5. **Turn on form submissions:** Netlify auto-detects the form on deploy.
-   Open **Site → Forms** and you'll see `free-funnel-audit`. Go to
-   **Forms → Form notifications → Add notification → Email notification** and
-   enter an email you control, so every submission reaches you.
-6. **Connect the domain:** **Site configuration → Domain management → Add a
-   domain → `gpmm.site`.** Then either:
-   - Point your registrar's **nameservers** to Netlify (easiest), or
-   - Keep your DNS and add the records Netlify shows (A/ALIAS for `gpmm.site`,
-     CNAME for `www`).
-   Netlify issues HTTPS automatically once DNS resolves.
+1. Go to <https://web3forms.com>, enter the email where you want submissions,
+   and copy the **Access Key** it sends you.
+2. Paste it into `src/data/site.ts` → `web3formsKey`, commit and push.
+   Both forms (English and Spanish) use it; the email subject says which one.
 
-Every `git push` to `main` now redeploys the site.
+## 2. Cloudflare Pages (hosting)
 
-## Option B — Vercel
+1. Sign up at <https://dash.cloudflare.com> → **Workers & Pages → Create →
+   Pages → Connect to Git**, and pick the repo `mtenderpsy94-sudo/paginagpmm`.
+2. Build settings: framework preset **Astro**, build command `npm run build`,
+   output directory `dist`. Under environment variables add `NODE_VERSION` = `20`.
+3. **Save and Deploy.** You get a URL like `paginagpmm.pages.dev`; check it.
 
-1. <https://vercel.com> → **Add New → Project** → import `paginagpmm`.
-2. Framework preset **Astro** is auto-detected (build `npm run build`, output
-   `dist`). Click **Deploy**.
-3. Add `gpmm.site` under **Project → Settings → Domains** and follow the DNS steps.
+## 3. Point gpmm.site to Cloudflare (DNS at Hostinger)
 
-> ⚠️ Vercel has no Netlify Forms. On Vercel the audit form won't receive
-> submissions until it's switched to **Formspree** (free). Tell me and I'll make
-> that change (needs a Formspree account + form endpoint).
+1. In the Cloudflare Pages project: **Custom domains → Set up a custom domain**,
+   add `gpmm.site` (and `www.gpmm.site`). Cloudflare shows the DNS records to use.
+2. In Hostinger → **Domains → gpmm.site → DNS / Nameservers**, replace the
+   current records for `@` and `www` (the ones pointing to Netlify) with the
+   ones Cloudflare shows. The site stays up on Netlify until DNS switches over.
+3. When Cloudflare shows the domain as **Active**, the move is done. You can
+   then delete the site from Netlify.
 
 ## Before going fully live — checklist
 
@@ -56,4 +49,4 @@ npm run build   # production build into dist/
 
 Note: this project pins `rollup` to its WASM build (see `overrides` in
 `package.json`) so the toolchain runs on machines with Windows Smart App Control.
-It builds fine on Netlify/Vercel (Linux) too.
+It builds fine on Cloudflare Pages (Linux) too.

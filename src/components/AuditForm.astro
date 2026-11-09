@@ -1,11 +1,12 @@
 ---
 import { services } from '../data/services';
 import { servicesEs, type Lang } from '../i18n/ui';
+import { site } from '../data/site';
 
 const { lang = 'en' } = Astro.props as { lang?: Lang };
 const es = lang === 'es';
-// Separate Netlify form for Spanish so its fields (budget) are registered on their own.
-const formName = es ? 'contacto-espanol' : 'free-funnel-audit';
+// Submissions go to Web3Forms, which emails them to you. The subject says which form it came from.
+const subject = es ? 'Nueva solicitud de auditoría (web en español)' : 'New interview request (English site)';
 const roles = ['Performance Marketeer', 'Growth Hacker', 'Web Designer & CRO Specialist', 'Something else'];
 // Spanish form asks for a monthly budget in US dollars instead of the role.
 const budgetsUsd = ['< $1,000', '$1,000 – 2,500', '$2,500 – 5,000', '$5,000+', 'Aún no lo sé'];
@@ -40,17 +41,17 @@ const options = es ? budgetsUsd : roles;
 ---
 <div class="form-wrap">
   <form
-    name={formName}
+    action="https://api.web3forms.com/submit"
     method="POST"
-    data-netlify="true"
-    netlify-honeypot="bot-field"
     class="audit-form"
     id="audit-form"
   >
-    <input type="hidden" name="form-name" value={formName} />
+    <input type="hidden" name="access_key" value={site.web3formsKey} />
+    <input type="hidden" name="subject" value={subject} />
+    <input type="hidden" name="from_name" value="gpmm.site" />
     <input type="hidden" name="language" value={lang} />
     <p class="hp">
-      <label>{t.hp} <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+      <label>{t.hp} <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" /></label>
     </p>
 
     <div class="grid-2">
@@ -153,10 +154,14 @@ const options = es ? budgetsUsd : roles;
   const success = document.getElementById('form-success');
   const error = document.getElementById('form-error');
 
-  const encode = (data: FormData) => {
-    const params = new URLSearchParams();
-    data.forEach((value, key) => params.append(key, value.toString()));
-    return params.toString();
+  // FormData -> plain object; repeated fields (service checkboxes) are joined with commas.
+  const toJson = (data: FormData) => {
+    const out: Record<string, string> = {};
+    data.forEach((value, key) => {
+      const v = value.toString();
+      out[key] = key in out ? `${out[key]}, ${v}` : v;
+    });
+    return out;
   };
 
   form?.addEventListener('submit', async (e) => {
@@ -166,12 +171,13 @@ const options = es ? budgetsUsd : roles;
     const submitBtn = form.querySelector<HTMLButtonElement>('.form-submit');
     if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = submitBtn.dataset.sending ?? ''; }
     try {
-      const res = await fetch('/', {
+      const res = await fetch(form.action, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encode(new FormData(form)),
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(toJson(new FormData(form))),
       });
-      if (!res.ok) throw new Error(String(res.status));
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok || !json.success) throw new Error(json.message ?? String(res.status));
       form.hidden = true;
       if (success) success.hidden = false;
       success?.scrollIntoView({ behavior: 'smooth', block: 'center' });
