@@ -37,7 +37,7 @@ export const ui = {
   es: {
     homeAria: 'Ender Muñoz, inicio',
     title: 'Growth Systems Architect',
-    cta: 'Agendar una llamada',
+    cta: 'Auditoría gratis',
     switchLabel: 'EN',
     switchAria: 'View in English',
     menuOpen: 'Abrir menú',
