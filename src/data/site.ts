@@ -4,12 +4,13 @@
 export const SHOW_PRICES = false;
 
 export const site = {
-  name: 'GPMM',
+  name: 'Ender Muñoz',
   domain: 'gpmm.site',
   url: 'https://gpmm.site',
 
   // Short positioning line. [TODO: confirm final wording]
-  tagline: 'Funnel & growth agency for info-products, creators, coaches and e-commerce',
+  tagline: 'Full-Stack Marketeer & Growth Hacker',
+  title: 'Growth Systems Architect',
 
   founder: 'Ender Muñoz',
   location: 'Netherlands',
@@ -20,7 +21,7 @@ export const site = {
     display: '+31 6 31 06 33 03',
     intl: '31631063303', // used in https://wa.me/<intl>
     message:
-      "Hi GPMM! I found you through your website and I'd like to know more about how you can help me grow my business. Could you tell me how it works and what the next steps are?",
+      "Hi Ender! I found your portfolio and I'd like to talk about a role on our growth team. When would you be available for a quick call?",
   },
 
   legal: {

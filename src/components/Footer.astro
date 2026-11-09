@@ -10,15 +10,16 @@ const hasSocials = site.socials.instagram || site.socials.linkedin;
 <footer class="site-footer">
   <div class="container foot-grid">
     <div class="foot-brand">
-      <a href="/" class="logo" aria-label="GPMM home">GPMM<span class="dot">.</span></a>
-      <p class="muted">Funnel &amp; growth agency. We build measurable sales systems for info-products, creators, coaches and e-commerce.</p>
+      <a href="/" class="logo" aria-label="Ender Muñoz, home">Ender Muñoz<span class="dot">.</span></a>
+      <p class="foot-title">Growth Systems Architect</p>
+      <p class="muted">Full-Stack Marketeer &amp; Growth Hacker. I build measurable sales systems that turn traffic into revenue.</p>
       {hasSocials && (
         <div class="socials">
           {site.socials.instagram && (
-            <a href={site.socials.instagram} aria-label="GPMM on Instagram" rel="me noopener" target="_blank"><Icon name="instagram" size={20} /></a>
+            <a href={site.socials.instagram} aria-label="Ender Muñoz on Instagram" rel="me noopener" target="_blank"><Icon name="instagram" size={20} /></a>
           )}
           {site.socials.linkedin && (
-            <a href={site.socials.linkedin} aria-label="GPMM on LinkedIn" rel="me noopener" target="_blank"><Icon name="linkedin" size={20} /></a>
+            <a href={site.socials.linkedin} aria-label="Ender Muñoz on LinkedIn" rel="me noopener" target="_blank"><Icon name="linkedin" size={20} /></a>
           )}
         </div>
       )}
@@ -33,12 +34,12 @@ const hasSocials = site.socials.instagram || site.socials.linkedin;
       </ul>
     </nav>
 
-    <nav class="foot-col" aria-label="Company">
-      <h4>Company</h4>
+    <nav class="foot-col" aria-label="Explore">
+      <h4>Explore</h4>
       <ul>
-        <li><a href="/our-approach">Our approach</a></li>
+        <li><a href="/our-approach">My approach</a></li>
         <li><a href="/about">About</a></li>
-        <li><a href="/free-funnel-audit">Free funnel audit</a></li>
+        <li><a href="/#audit">Book an interview</a></li>
         <li><a href="/legal/privacy-policy">Privacy policy</a></li>
         <li><a href="/legal/terms">Terms</a></li>
         <li><a href="/legal/cookie-policy">Cookie policy</a></li>
@@ -67,6 +68,7 @@ const hasSocials = site.socials.instagram || site.socials.linkedin;
   .site-footer { background: var(--bg-alt); border-top: 1px solid var(--border); padding-block: clamp(2.5rem, 5vw, 4rem) 1.5rem; }
   .logo { font-family: var(--font-display); font-weight: 700; font-size: 1.4rem; color: var(--heading); letter-spacing: -0.03em; }
   .logo .dot { color: var(--accent); }
+  .foot-title { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin: 0.35rem 0 0; }
   .logo:hover { text-decoration: none; }
 
   .foot-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 2rem 1.5rem; }

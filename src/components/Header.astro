@@ -7,11 +7,14 @@ const isActive = (href: string) => path === href.replace(/\/$/, '');
 ---
 <header class="site-header">
   <div class="container bar">
-    <a href="/" class="logo" aria-label="GPMM home">GPMM<span class="dot">.</span></a>
+    <a href="/" class="logo" aria-label="Ender Muñoz, home">
+      <span class="logo-name">Ender Muñoz<span class="dot">.</span></span>
+      <span class="logo-title">Growth Systems Architect</span>
+    </a>
 
     <nav class="desk-nav" aria-label="Primary">
       <ul>
-        <li><a href="/our-approach" class:list={[{ current: isActive('/our-approach') }]} aria-current={isActive('/our-approach') ? 'page' : undefined}>Our approach</a></li>
+        <li><a href="/our-approach" class:list={[{ current: isActive('/our-approach') }]} aria-current={isActive('/our-approach') ? 'page' : undefined}>My approach</a></li>
         <li class="has-mega">
           <button type="button" class="mega-trigger" aria-expanded="false" aria-controls="mega-services">
             Services <Icon name="chevron-down" size={16} class="chev" />
@@ -38,7 +41,7 @@ const isActive = (href: string) => path === href.replace(/\/$/, '');
       </ul>
     </nav>
 
-    <a href="/free-funnel-audit" class="btn btn--primary header-cta">Free funnel audit</a>
+    <a href="/#audit" class="btn btn--primary header-cta">Book an interview</a>
 
     <button type="button" class="hamburger" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
       <Icon name="menu" size={26} />
@@ -48,7 +51,7 @@ const isActive = (href: string) => path === href.replace(/\/$/, '');
 
 <div class="mobile-menu" id="mobile-menu" hidden>
     <nav aria-label="Mobile">
-      <a href="/our-approach" class="m-link">Our approach</a>
+      <a href="/our-approach" class="m-link">My approach</a>
       <button type="button" class="m-link m-accordion" aria-expanded="false" aria-controls="m-services">
         Services <Icon name="chevron-down" size={20} class="chev" />
       </button>
@@ -60,7 +63,7 @@ const isActive = (href: string) => path === href.replace(/\/$/, '');
       </div>
       <a href="/about" class="m-link">About</a>
       <a href="/free-funnel-audit" class="m-link">Contact</a>
-      <a href="/free-funnel-audit" class="btn btn--primary btn--lg m-cta">Free funnel audit</a>
+      <a href="/#audit" class="btn btn--primary btn--lg m-cta">Book an interview</a>
     </nav>
   </div>
 
@@ -77,8 +80,13 @@ const isActive = (href: string) => path === href.replace(/\/$/, '');
     font-family: var(--font-display); font-weight: 700; font-size: 1.4rem;
     color: var(--heading); letter-spacing: -0.03em; text-decoration: none; margin-right: auto;
   }
+  .logo { display: flex; flex-direction: column; line-height: 1.05; }
   .logo:hover { text-decoration: none; }
   .logo .dot { color: var(--accent); }
+  .logo-title {
+    font-family: var(--font-body); font-size: 0.66rem; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem;
+  }
 
   .desk-nav { display: none; }
   .desk-nav ul { list-style: none; display: flex; align-items: center; gap: 0.3rem; }

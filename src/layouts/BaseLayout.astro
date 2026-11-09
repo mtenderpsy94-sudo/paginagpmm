@@ -19,11 +19,11 @@ const { title, description, image, ogType } = Astro.props;
 const sameAs = [site.socials.instagram, site.socials.linkedin].filter(Boolean);
 const orgLd = {
   '@context': 'https://schema.org',
-  '@type': 'Organization',
+  '@type': 'Person',
   name: site.name,
   url: site.url,
-  description: 'Funnel and growth agency building measurable sales systems for info-products, creators, coaches and e-commerce.',
-  areaServed: 'Europe',
+  jobTitle: 'Full-Stack Marketeer & Growth Hacker',
+  description: 'Full-stack marketeer building landing pages, copy, Meta Ads and funnels that turn budgets into measurable revenue.',
   address: { '@type': 'PostalAddress', addressCountry: 'NL' },
   ...(sameAs.length ? { sameAs } : {}),
 };

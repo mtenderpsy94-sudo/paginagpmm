@@ -1,6 +1,7 @@
 ---
-import { services, serviceBudgets } from '../data/services';
+import { services } from '../data/services';
 const formName = 'free-funnel-audit';
+const roles = ['Performance Marketeer', 'Growth Hacker', 'Web Designer & CRO Specialist', 'Something else'];
 ---
 <div class="form-wrap">
   <form
@@ -38,16 +39,16 @@ const formName = 'free-funnel-audit';
         <input id="f-phone" name="phone" type="tel" autocomplete="tel" />
       </div>
       <div class="field">
-        <label for="f-budget">Monthly marketing budget <span class="req" aria-hidden="true">*</span></label>
-        <select id="f-budget" name="budget" required>
-          <option value="" disabled selected>Select a range</option>
-          {serviceBudgets.map((b) => <option value={b}>{b}</option>)}
+        <label for="f-role">What role are you looking to fill? <span class="req" aria-hidden="true">*</span></label>
+        <select id="f-role" name="role" required>
+          <option value="" disabled selected>Select a role</option>
+          {roles.map((r) => <option value={r}>{r}</option>)}
         </select>
       </div>
     </div>
 
     <fieldset class="field services">
-      <legend>Which service are you interested in?</legend>
+      <legend>Which skills matter most for the role?</legend>
       <div class="chips">
         {services.map((s) => (
           <label class="chip">
@@ -60,28 +61,28 @@ const formName = 'free-funnel-audit';
 
     <div class="field">
       <label for="f-message">Message</label>
-      <textarea id="f-message" name="message" rows="4" placeholder="Tell us a bit about your offer and where you’re stuck."></textarea>
+      <textarea id="f-message" name="message" rows="4" placeholder="Tell me about the role, your team and the clients you work with."></textarea>
     </div>
 
     <label class="consent">
       <input type="checkbox" name="consent" value="yes" required />
-      <span>I agree that GPMM may contact me about my request. See the <a href="/legal/privacy-policy">privacy policy</a>. <span class="req" aria-hidden="true">*</span></span>
+      <span>I agree that Ender Muñoz may contact me about this role. See the <a href="/legal/privacy-policy">privacy policy</a>. <span class="req" aria-hidden="true">*</span></span>
     </label>
 
-    <button type="submit" class="btn btn--primary btn--lg form-submit">Get your free funnel audit</button>
-    <p class="form-error" id="form-error" role="alert" hidden>Something went wrong. Please try again, or message us on WhatsApp.</p>
+    <button type="submit" class="btn btn--primary btn--lg form-submit">Book an interview</button>
+    <p class="form-error" id="form-error" role="alert" hidden>Something went wrong. Please try again, or message me on WhatsApp.</p>
   </form>
 
   <div class="form-success" id="form-success" hidden role="status">
-    <h3>Thanks, we’ve got it.</h3>
-    <p>We’ll review your funnel and get back to you within two business days. Prefer to talk now? Message us on WhatsApp.</p>
+    <h3>Thanks, I’ve got it.</h3>
+    <p>I’ll get back to you within two business days to schedule the interview. Prefer to talk now? Message me on WhatsApp.</p>
   </div>
 </div>
 
 <style>
   .form-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: clamp(1.4rem, 3vw, 2.2rem); box-shadow: var(--shadow-md); }
   .hp { position: absolute; left: -9999px; }
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; align-items: end; }
   .field { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.1rem; min-width: 0; }
   .grid-2 .field { margin-bottom: 0; }
   label { font-size: var(--fs-sm); font-weight: 600; color: var(--heading); }
@@ -140,7 +141,7 @@ const formName = 'free-funnel-audit';
       success?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     } catch {
       if (error) error.hidden = false;
-      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Get your free funnel audit'; }
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Book an interview'; }
     }
   });
 </script>

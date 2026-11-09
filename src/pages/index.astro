@@ -16,17 +16,23 @@ const disciplines = [
 ] as const;
 
 const steps = [
-  { n: '01', title: 'Audit', when: 'Week 1', body: 'We map your funnel, traffic and numbers to find exactly where money is leaking.' },
-  { n: '02', title: 'Strategy', when: 'Week 1–2', body: 'A clear plan: offer, funnel structure, copy angles and the channels that fit you.' },
-  { n: '03', title: 'Build', when: 'Weeks 2–5', body: 'We design, write and ship the full system: pages, checkout, emails and tracking.' },
-  { n: '04', title: 'Scale', when: 'Ongoing', body: 'We test, optimize and scale what works, month over month.' },
+  { n: '01', title: 'Audit', when: 'Week 1', body: 'I map the funnel, traffic and numbers to find exactly where money is leaking.' },
+  { n: '02', title: 'Strategy', when: 'Week 1–2', body: 'A clear plan: offer, funnel structure, copy angles and the channels that fit the client.' },
+  { n: '03', title: 'Build', when: 'Weeks 2–5', body: 'I design, write and ship the full system: pages, checkout, emails and tracking.' },
+  { n: '04', title: 'Scale', when: 'Ongoing', body: 'I test, optimize and scale what works, month over month.' },
 ];
 
-const auditIncludes = [
-  'A teardown of your funnel and offer',
-  'A check of your traffic and tracking setup',
-  'Three quick wins you can apply right away',
-  'A 360° view of your business',
+const dayOne = [
+  'Funnel architecture & conversion optimization',
+  'Psychological, conversion-focused copywriting',
+  'Meta Ads strategy, creatives and tracking',
+  'A 360° view of every client’s business',
+];
+
+const interviewIncludes = [
+  'A reply within two business days',
+  'A walkthrough of my funnels, copy and campaigns',
+  'Open to joining a growth team in Enschede',
 ];
 
 const clients = [
@@ -35,25 +41,25 @@ const clients = [
 ];
 ---
 <BaseLayout
-  title="GPMM | Funnel & growth agency"
-  description="GPMM builds measurable sales systems (funnel, copy, checkout, web and ads) that turn cold traffic into paying customers. Based in the Netherlands, serving clients across Europe."
+  title="Ender Muñoz | Full-Stack Marketeer & Growth Hacker"
+  description="Ender Muñoz, Full-Stack Marketeer & Growth Hacker. Landing pages, psychological copywriting, Meta Ads and funnel architecture that turn budgets into measurable revenue. Looking to join a growth team in Enschede."
 >
   <!-- 1. HERO -->
   <section class="hero">
     <div class="container hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow">Funnel &amp; growth agency</p>
-        <h1>Everything your business needs to <span class="hl">grow online</span>.</h1>
-        <p class="lead">From websites and funnels to copy, checkout and ads, GPMM builds and runs the complete system behind your growth. One team for info-products, creators, coaches and e-commerce.</p>
-        <p class="hero-note muted">Based in the Netherlands · Working with clients across Europe</p>
+        <p class="eyebrow">Full-Stack Marketeer &amp; Growth Hacker</p>
+        <h1>Everything your marketing team needs to build, scale, and <span class="hl">convert traffic</span>.</h1>
+        <p class="lead">From high-converting landing pages to psychological copywriting, Meta Ads, and funnel architecture. I design systems that turn budgets into measurable revenue. Looking to join a forward-thinking growth team in Enschede.</p>
+        <p class="hero-note muted">Based in the Netherlands · Open to roles in Enschede</p>
       </div>
 
       <div class="hero-right">
-        <img src="/images/ender.jpg" alt="Ender Muñoz, founder of GPMM" class="hero-photo reveal" width="1000" height="563" fetchpriority="high" decoding="async" />
-        <aside class="hero-card reveal" aria-label="What the free funnel audit includes">
-        <p class="hc-title">Your free funnel audit includes</p>
+        <img src="/images/ender.jpg" alt="Ender Muñoz, Full-Stack Marketeer & Growth Hacker" class="hero-photo reveal" width="1000" height="563" fetchpriority="high" decoding="async" />
+        <aside class="hero-card reveal" aria-label="What I bring from day one">
+        <p class="hc-title">What I bring from day one</p>
         <ul class="hc-list">
-          {auditIncludes.map((item) => (
+          {dayOne.map((item) => (
             <li><Icon name="check" size={18} /> {item}</li>
           ))}
         </ul>
@@ -66,9 +72,9 @@ const clients = [
   <section class="section offer">
     <div class="container offer-grid">
       <div class="offer-copy reveal">
-        <h2>How much of your marketing budget actually <span class="hl">turned into results</span> this year?</h2>
-        <p class="lead">Most business owners can't answer. They've only had scattered tactics, reports that don't match the bank account, and agencies that vanish without results. <strong>To fix that, in just 5 weeks you'll have:</strong></p>
-        <a href="/free-funnel-audit" class="btn btn--primary btn--lg">Get your free funnel audit</a>
+        <h2>How much of your clients' budget actually <span class="hl">turned into results</span> this year?</h2>
+        <p class="lead">Most business owners can't answer. They've only had scattered tactics, reports that don't match the bank account, and campaigns that vanish without results. <strong>That's the gap I close. Within 5 weeks, every client account I touch gets:</strong></p>
+        <a href="#audit" class="btn btn--primary btn--lg">Book an interview</a>
       </div>
       <ul class="offer-list reveal">
         <li><span class="ol-ic"><Icon name="check" size={18} /></span> <span>A clear diagnosis of where your money is being wasted</span></li>
@@ -81,7 +87,7 @@ const clients = [
   <!-- CLIENTS / SOCIAL PROOF -->
   <section class="clients">
     <div class="container">
-      <p class="clients-label">Businesses we've helped grow</p>
+      <p class="clients-label">Businesses I've helped grow</p>
       <div class="clients-logos">
         {clients.map((c) => (
           <img src={c.logo} alt={c.name} class="client-logo" loading="lazy" decoding="async" />
@@ -93,9 +99,9 @@ const clients = [
   <!-- 2. MANIFESTO -->
   <section class="section section--alt">
     <div class="container narrow manifesto reveal">
-      <p class="eyebrow">What we believe</p>
-      <p class="manifesto-text">Likes don't pay the bills. We build <span class="hl">measurable sales systems</span>, with every euro of traffic tracked from the first click to the repeat purchase. If it can't be measured, it can't be scaled.</p>
-      <p class="slogan">“We build sales systems, not vanity metrics.”</p>
+      <p class="eyebrow">What I believe</p>
+      <p class="manifesto-text">Likes don't pay the bills. I build <span class="hl">measurable sales systems</span>, with every euro of traffic tracked from the first click to the repeat purchase. If it can't be measured, it can't be scaled.</p>
+      <p class="slogan">“I build sales systems, not vanity metrics.”</p>
     </div>
   </section>
 
@@ -110,9 +116,9 @@ const clients = [
   <section class="section gt-team">
     <div class="container">
       <div class="sec-head reveal">
-        <p class="eyebrow">Your own growth team</p>
-        <h2>One team. One system. <span class="hl">Every part pulling together.</span></h2>
-        <p class="lead muted">Most businesses buy funnel, copy, checkout, web, ads and content from different people who never talk to each other. We run them as a single system, so every piece reinforces the next.</p>
+        <p class="eyebrow">My approach</p>
+        <h2>One marketeer. One system. <span class="hl">Every part pulling together.</span></h2>
+        <p class="lead muted">Most businesses buy funnel, copy, checkout, web, ads and content from different people who never talk to each other. I run them as a single system, so every piece reinforces the next.</p>
       </div>
 
       <ul class="disciplines reveal">
@@ -133,9 +139,9 @@ const clients = [
   <section class="section section--alt">
     <div class="container">
       <div class="sec-head reveal">
-        <p class="eyebrow">Services</p>
-        <h2>Everything you need to <span class="hl">sell online</span></h2>
-        <p class="lead muted">Pick one piece or the whole system. Each service is built to connect with the others.</p>
+        <p class="eyebrow">My growth stack</p>
+        <h2>Everything a client needs to <span class="hl">sell online</span></h2>
+        <p class="lead muted">These are the capabilities I bring to your agency's client portfolio from day one:</p>
       </div>
       <div class="services-grid">
         {services.map((s) => <ServiceCard service={s} />)}
@@ -147,7 +153,7 @@ const clients = [
   <section class="section">
     <div class="container">
       <div class="sec-head reveal">
-        <p class="eyebrow">How we work</p>
+        <p class="eyebrow">How I work</p>
         <h2>A clear path from <span class="hl">leak to scale</span></h2>
       </div>
       <ol class="process">
@@ -164,7 +170,7 @@ const clients = [
           </li>
         ))}
       </ol>
-      <p class="process-link reveal"><a href="/our-approach">See our full approach <Icon name="arrow-right" size={16} /></a></p>
+      <p class="process-link reveal"><a href="/our-approach">See my full approach <Icon name="arrow-right" size={16} /></a></p>
     </div>
   </section>
 
@@ -172,11 +178,11 @@ const clients = [
   <section class="section section--alt" id="audit">
     <div class="container audit-grid">
       <div class="audit-copy reveal">
-        <p class="eyebrow">Free funnel audit</p>
-        <h2>Let's find what's <span class="hl">leaking</span>, for free</h2>
-        <p class="lead muted">Tell us what you want to build and we'll help you make it happen. No obligation, no hard sell, just a clear picture of your biggest opportunities.</p>
+        <p class="eyebrow">Hiring for your growth team?</p>
+        <h2>Let's grow your <span class="hl">clients</span> together</h2>
+        <p class="lead muted">Tell me about the role, your team and the clients you work with. I'll come prepared with ideas for your portfolio, not just a CV.</p>
         <ul class="audit-list">
-          {auditIncludes.map((item) => (<li><Icon name="check" size={18} /> {item}</li>))}
+          {interviewIncludes.map((item) => (<li><Icon name="check" size={18} /> {item}</li>))}
         </ul>
       </div>
       <div class="audit-form-col reveal">
@@ -190,7 +196,7 @@ const clients = [
   /* HERO */
   .hero { padding-block: clamp(2.5rem, 6vw, 5rem); }
   .hero-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
-  .hero-copy h1 { margin-bottom: 1rem; }
+  .hero-copy h1 { margin-bottom: 1rem; font-size: clamp(2.1rem, 1.4rem + 2.4vw, 3.2rem); text-wrap: balance; }
   .hero-copy .lead { max-width: 46ch; margin-bottom: 1.8rem; }
   .hero-cta { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1.4rem; }
   .hero-note { font-size: var(--fs-sm); }
