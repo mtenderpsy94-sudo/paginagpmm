@@ -19,7 +19,7 @@ export const site = {
 
   // Web3Forms access key (https://web3forms.com): contact form submissions are emailed to
   // the address the key was created with. It's a public key, safe to keep in the page.
-  web3formsKey: '', // [TODO: paste the key from web3forms.com]
+  web3formsKey: '159494b3-8310-4141-ac54-ce9517db4462',
 
   whatsapp: {
     display: '+31 6 31 06 33 03',
