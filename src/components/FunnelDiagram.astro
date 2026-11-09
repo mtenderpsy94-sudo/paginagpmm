@@ -1,8 +1,18 @@
 ---
 import Icon from './Icon.astro';
-const steps = ['Cold traffic', 'Landing page', 'Checkout', 'Upsell', 'Email follow-up', 'Repeat customer'];
+
+interface Props {
+  steps?: string[];
+  class?: string;
+}
+
+const {
+  steps = ['Cold traffic', 'Landing page', 'Checkout + Order bump', 'Upsell', 'Downsell', 'Email follow-up', 'Repeat customer'],
+  class: className,
+} = Astro.props;
+const label = `Funnel flow: ${steps.join(' to ').toLowerCase()}.`;
 ---
-<div class="funnel reveal" role="img" aria-label="Funnel flow: cold traffic to landing page to checkout to upsell to email follow-up to repeat customer.">
+<div class:list={['funnel reveal', className]} role="img" aria-label={label}>
   {steps.map((step, i) => (
     <>
       <span class:list={['node', { 'node--end': i === steps.length - 1 }]}>{step}</span>
@@ -14,17 +24,19 @@ const steps = ['Cold traffic', 'Landing page', 'Checkout', 'Upsell', 'Email foll
 <style>
   .funnel {
     display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
-    gap: 0.5rem 0.4rem; margin-top: 2rem;
+    gap: 0.5rem 0.3rem; margin-top: 2rem;
   }
+  .funnel + .funnel { margin-top: 1rem; }
   .node {
     background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius-pill);
-    padding: 0.6rem 1.1rem; font-family: var(--font-display); font-weight: 600; font-size: var(--fs-sm);
+    padding: 0.6rem 0.85rem; font-family: var(--font-display); font-weight: 600; font-size: var(--fs-sm);
     color: var(--heading); white-space: nowrap; box-shadow: var(--shadow-sm);
   }
   .node--end { background: var(--accent-strong); border-color: var(--accent-strong); color: #fff; }
   .arrow { color: var(--accent); display: inline-grid; place-items: center; }
   @media (max-width: 640px) {
     .funnel { flex-direction: column; }
+    .funnel + .funnel { margin-top: 2rem; }
     .node { width: 100%; max-width: 280px; text-align: center; }
     .arrow { transform: rotate(90deg); }
   }
