@@ -1,7 +1,42 @@
 ---
 import { services } from '../data/services';
-const formName = 'free-funnel-audit';
+import { servicesEs, type Lang } from '../i18n/ui';
+
+const { lang = 'en' } = Astro.props as { lang?: Lang };
+const es = lang === 'es';
+// Separate Netlify form for Spanish so its fields (budget) are registered on their own.
+const formName = es ? 'contacto-espanol' : 'free-funnel-audit';
 const roles = ['Performance Marketeer', 'Growth Hacker', 'Web Designer & CRO Specialist', 'Something else'];
+// Spanish form asks for a monthly budget in US dollars instead of the role.
+const budgetsUsd = ['< $1,000', '$1,000 – 2,500', '$2,500 – 5,000', '$5,000+', 'Aún no lo sé'];
+
+const t = es
+  ? {
+      hp: 'No llenes este campo si eres humano:',
+      name: 'Nombre', email: 'Email', company: 'Empresa', website: 'Sitio web', phone: 'Teléfono',
+      selectLabel: 'Presupuesto mensual de marketing (USD)', selectPlaceholder: 'Elige un rango',
+      skills: '¿Qué servicios te interesan?',
+      message: 'Mensaje', messagePh: 'Cuéntame un poco sobre tu negocio, tu oferta y dónde estás atascado.',
+      consent: 'Acepto que Ender Muñoz me contacte sobre mi solicitud. Ver la', privacy: 'política de privacidad',
+      submit: 'Agendar una llamada', sending: 'Enviando…',
+      error: 'Algo salió mal. Inténtalo de nuevo o escríbeme por WhatsApp.',
+      okTitle: '¡Gracias, ya lo recibí!',
+      okBody: 'Te respondo en un máximo de dos días hábiles. ¿Prefieres hablar ya? Escríbeme por WhatsApp.',
+    }
+  : {
+      hp: 'Don’t fill this out if you’re human:',
+      name: 'Name', email: 'Email', company: 'Company', website: 'Website', phone: 'Phone',
+      selectLabel: 'What role are you looking to fill?', selectPlaceholder: 'Select a role',
+      skills: 'Which skills matter most for the role?',
+      message: 'Message', messagePh: 'Tell me about the role, your team and the clients you work with.',
+      consent: 'I agree that Ender Muñoz may contact me about this role. See the', privacy: 'privacy policy',
+      submit: 'Book an interview', sending: 'Sending…',
+      error: 'Something went wrong. Please try again, or message me on WhatsApp.',
+      okTitle: 'Thanks, I’ve got it.',
+      okBody: 'I’ll get back to you within two business days to schedule the interview. Prefer to talk now? Message me on WhatsApp.',
+    };
+const selectName = es ? 'budget' : 'role';
+const options = es ? budgetsUsd : roles;
 ---
 <div class="form-wrap">
   <form
@@ -13,69 +48,70 @@ const roles = ['Performance Marketeer', 'Growth Hacker', 'Web Designer & CRO Spe
     id="audit-form"
   >
     <input type="hidden" name="form-name" value={formName} />
+    <input type="hidden" name="language" value={lang} />
     <p class="hp">
-      <label>Don’t fill this out if you’re human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+      <label>{t.hp} <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
     </p>
 
     <div class="grid-2">
       <div class="field">
-        <label for="f-name">Name <span class="req" aria-hidden="true">*</span></label>
+        <label for="f-name">{t.name} <span class="req" aria-hidden="true">*</span></label>
         <input id="f-name" name="name" type="text" autocomplete="name" required />
       </div>
       <div class="field">
-        <label for="f-email">Email <span class="req" aria-hidden="true">*</span></label>
+        <label for="f-email">{t.email} <span class="req" aria-hidden="true">*</span></label>
         <input id="f-email" name="email" type="email" autocomplete="email" required />
       </div>
       <div class="field">
-        <label for="f-company">Company <span class="req" aria-hidden="true">*</span></label>
+        <label for="f-company">{t.company} <span class="req" aria-hidden="true">*</span></label>
         <input id="f-company" name="company" type="text" autocomplete="organization" required />
       </div>
       <div class="field">
-        <label for="f-website">Website</label>
+        <label for="f-website">{t.website}</label>
         <input id="f-website" name="website" type="url" inputmode="url" placeholder="https://" autocomplete="url" />
       </div>
       <div class="field">
-        <label for="f-phone">Phone</label>
+        <label for="f-phone">{t.phone}</label>
         <input id="f-phone" name="phone" type="tel" autocomplete="tel" />
       </div>
       <div class="field">
-        <label for="f-role">What role are you looking to fill? <span class="req" aria-hidden="true">*</span></label>
-        <select id="f-role" name="role" required>
-          <option value="" disabled selected>Select a role</option>
-          {roles.map((r) => <option value={r}>{r}</option>)}
+        <label for="f-select">{t.selectLabel} <span class="req" aria-hidden="true">*</span></label>
+        <select id="f-select" name={selectName} required>
+          <option value="" disabled selected>{t.selectPlaceholder}</option>
+          {options.map((o) => <option value={o}>{o}</option>)}
         </select>
       </div>
     </div>
 
     <fieldset class="field services">
-      <legend>Which skills matter most for the role?</legend>
+      <legend>{t.skills}</legend>
       <div class="chips">
         {services.map((s) => (
           <label class="chip">
             <input type="checkbox" name="services" value={s.name} />
-            <span>{s.name}</span>
+            <span>{es ? servicesEs[s.slug]?.name ?? s.name : s.name}</span>
           </label>
         ))}
       </div>
     </fieldset>
 
     <div class="field">
-      <label for="f-message">Message</label>
-      <textarea id="f-message" name="message" rows="4" placeholder="Tell me about the role, your team and the clients you work with."></textarea>
+      <label for="f-message">{t.message}</label>
+      <textarea id="f-message" name="message" rows="4" placeholder={t.messagePh}></textarea>
     </div>
 
     <label class="consent">
       <input type="checkbox" name="consent" value="yes" required />
-      <span>I agree that Ender Muñoz may contact me about this role. See the <a href="/legal/privacy-policy">privacy policy</a>. <span class="req" aria-hidden="true">*</span></span>
+      <span>{t.consent} <a href="/legal/privacy-policy">{t.privacy}</a>. <span class="req" aria-hidden="true">*</span></span>
     </label>
 
-    <button type="submit" class="btn btn--primary btn--lg form-submit">Book an interview</button>
-    <p class="form-error" id="form-error" role="alert" hidden>Something went wrong. Please try again, or message me on WhatsApp.</p>
+    <button type="submit" class="btn btn--primary btn--lg form-submit" data-label={t.submit} data-sending={t.sending}>{t.submit}</button>
+    <p class="form-error" id="form-error" role="alert" hidden>{t.error}</p>
   </form>
 
   <div class="form-success" id="form-success" hidden role="status">
-    <h3>Thanks, I’ve got it.</h3>
-    <p>I’ll get back to you within two business days to schedule the interview. Prefer to talk now? Message me on WhatsApp.</p>
+    <h3>{t.okTitle}</h3>
+    <p>{t.okBody}</p>
   </div>
 </div>
 
@@ -128,7 +164,7 @@ const roles = ['Performance Marketeer', 'Growth Hacker', 'Web Designer & CRO Spe
     if (error) error.hidden = true;
     if (!form.reportValidity()) return;
     const submitBtn = form.querySelector<HTMLButtonElement>('.form-submit');
-    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = submitBtn.dataset.sending ?? ''; }
     try {
       const res = await fetch('/', {
         method: 'POST',
@@ -141,7 +177,7 @@ const roles = ['Performance Marketeer', 'Growth Hacker', 'Web Designer & CRO Spe
       success?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     } catch {
       if (error) error.hidden = false;
-      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Book an interview'; }
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = submitBtn.dataset.label ?? ''; }
     }
   });
 </script>

@@ -1,10 +1,13 @@
 ---
 import { site } from '../data/site';
 import Icon from './Icon.astro';
+import { ui, type Lang } from '../i18n/ui';
 
-const href = `https://wa.me/${site.whatsapp.intl}?text=${encodeURIComponent(site.whatsapp.message)}`;
+const { lang = 'en' } = Astro.props as { lang?: Lang };
+const t = ui[lang];
+const href = `https://wa.me/${site.whatsapp.intl}?text=${encodeURIComponent(t.whatsappMessage)}`;
 ---
-<a class="wa-float" href={href} target="_blank" rel="noopener" aria-label="Chat with Ender on WhatsApp">
+<a class="wa-float" href={href} target="_blank" rel="noopener" aria-label={t.whatsappAria}>
   <Icon name="whatsapp" size={30} />
 </a>
 

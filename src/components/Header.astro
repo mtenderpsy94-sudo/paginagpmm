@@ -1,18 +1,37 @@
 ---
 import { services } from '../data/services';
 import Icon from './Icon.astro';
+import { ui, homePath, type Lang } from '../i18n/ui';
 
+const { lang = 'en' } = Astro.props as { lang?: Lang };
+const t = ui[lang];
+const es = lang === 'es';
+const home = homePath[lang];
+const other = homePath[es ? 'en' : 'es'];
+const ctaHref = es ? '/espanol#audit' : '/#audit';
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isActive = (href: string) => path === href.replace(/\/$/, '');
+// Spanish site is a single page: its menu links to sections on it.
+const esLinks = [
+  { href: '/espanol#enfoque', label: 'Mi enfoque' },
+  { href: '/espanol#servicios', label: 'Servicios' },
+  { href: '/espanol#proceso', label: 'Proceso' },
+  { href: '/espanol#audit', label: 'Contacto' },
+];
 ---
 <header class="site-header">
   <div class="container bar">
-    <a href="/" class="logo" aria-label="Ender Muñoz, home">
+    <a href={home} class="logo" aria-label={t.homeAria}>
       <span class="logo-name">Ender Muñoz<span class="dot">.</span></span>
-      <span class="logo-title">Growth Systems Architect</span>
+      <span class="logo-title">{t.title}</span>
     </a>
 
-    <nav class="desk-nav" aria-label="Primary">
+    <nav class="desk-nav" aria-label={es ? 'Principal' : 'Primary'}>
+      {es ? (
+        <ul>
+          {esLinks.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+        </ul>
+      ) : (
       <ul>
         <li><a href="/our-approach" class:list={[{ current: isActive('/our-approach') }]} aria-current={isActive('/our-approach') ? 'page' : undefined}>My approach</a></li>
         <li class="has-mega">
@@ -39,18 +58,24 @@ const isActive = (href: string) => path === href.replace(/\/$/, '');
         <li><a href="/about" class:list={[{ current: isActive('/about') }]} aria-current={isActive('/about') ? 'page' : undefined}>About</a></li>
         <li><a href="/free-funnel-audit" class:list={[{ current: isActive('/free-funnel-audit') }]} aria-current={isActive('/free-funnel-audit') ? 'page' : undefined}>Contact</a></li>
       </ul>
+      )}
     </nav>
 
-    <a href="/#audit" class="btn btn--primary header-cta">Book an interview</a>
+    <a href={other} class="lang-switch" hreflang={es ? 'en' : 'es'} aria-label={t.switchAria}>{t.switchLabel}</a>
+    <a href={ctaHref} class="btn btn--primary header-cta">{t.cta}</a>
 
-    <button type="button" class="hamburger" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+    <button type="button" class="hamburger" aria-expanded="false" aria-controls="mobile-menu" aria-label={t.menuOpen} data-open={t.menuOpen} data-close={t.menuClose}>
       <Icon name="menu" size={26} />
     </button>
   </div>
 </header>
 
 <div class="mobile-menu" id="mobile-menu" hidden>
-    <nav aria-label="Mobile">
+    <nav aria-label={es ? 'Móvil' : 'Mobile'}>
+      {es ? (
+        esLinks.map((l) => <a href={l.href} class="m-link">{l.label}</a>)
+      ) : (
+      <>
       <a href="/our-approach" class="m-link">My approach</a>
       <button type="button" class="m-link m-accordion" aria-expanded="false" aria-controls="m-services">
         Services <Icon name="chevron-down" size={20} class="chev" />
@@ -63,7 +88,10 @@ const isActive = (href: string) => path === href.replace(/\/$/, '');
       </div>
       <a href="/about" class="m-link">About</a>
       <a href="/free-funnel-audit" class="m-link">Contact</a>
-      <a href="/#audit" class="btn btn--primary btn--lg m-cta">Book an interview</a>
+      </>
+      )}
+      <a href={other} class="m-link" hreflang={es ? 'en' : 'es'}>{es ? 'English' : 'Español'}</a>
+      <a href={ctaHref} class="btn btn--primary btn--lg m-cta">{t.cta}</a>
     </nav>
   </div>
 
@@ -136,6 +164,12 @@ const isActive = (href: string) => path === href.replace(/\/$/, '');
   }
 
   .header-cta { display: none; padding: 0.6rem 1.1rem; }
+  .lang-switch {
+    font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; color: var(--heading);
+    border: 1px solid var(--border-strong); border-radius: var(--radius-pill);
+    padding: 0.35rem 0.7rem; text-decoration: none;
+  }
+  .lang-switch:hover { background: var(--accent-soft); color: var(--accent-ink); text-decoration: none; }
 
   .hamburger {
     display: inline-flex; margin-left: auto; background: none; border: 0;
@@ -197,10 +231,11 @@ const isActive = (href: string) => path === href.replace(/\/$/, '');
     if (!mobile || !hamburger) return;
     mobile.hidden = !open;
     hamburger.setAttribute('aria-expanded', String(open));
-    hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    hamburger.setAttribute('aria-label', (open ? hamburger.dataset.close : hamburger.dataset.open) ?? '');
     document.body.classList.toggle('menu-open', open);
   };
   hamburger?.addEventListener('click', () => setMenu(mobile?.hidden ?? true));
+  mobile?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
 
   // Mobile services accordion
   const acc = document.querySelector<HTMLButtonElement>('.m-accordion');

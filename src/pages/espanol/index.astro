@@ -1,0 +1,195 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import FunnelDiagram from '../../components/FunnelDiagram.astro';
+import AuditForm from '../../components/AuditForm.astro';
+import Icon from '../../components/Icon.astro';
+import { services } from '../../data/services';
+import '../../styles/home.css';
+
+const disciplines = [
+  { icon: 'filter', label: 'Embudo' },
+  { icon: 'pen', label: 'Copy' },
+  { icon: 'cart', label: 'Checkout' },
+  { icon: 'layout', label: 'Web' },
+  { icon: 'target', label: 'Ads' },
+  { icon: 'trending-up', label: 'Contenido' },
+] as const;
+
+const steps = [
+  { n: '01', title: 'Auditoría', when: 'Semana 1', body: 'Analizo el embudo, el tráfico y los números para encontrar exactamente dónde se está perdiendo el dinero.' },
+  { n: '02', title: 'Estrategia', when: 'Semanas 1–2', body: 'Un plan claro: oferta, estructura del embudo, ángulos de copy y los canales que encajan con el negocio.' },
+  { n: '03', title: 'Construcción', when: 'Semanas 2–5', body: 'Diseño, escribo y lanzo el sistema completo: páginas, checkout, emails y tracking.' },
+  { n: '04', title: 'Escala', when: 'Continuo', body: 'Pruebo, optimizo y escalo lo que funciona, mes a mes.' },
+];
+
+const dayOne = [
+  'Arquitectura de embudos y optimización de conversión',
+  'Copywriting psicológico enfocado en conversión',
+  'Estrategia, creativos y tracking de Meta Ads',
+  'Una visión 360° de cada negocio',
+];
+
+const contactIncludes = [
+  'Respuesta en un máximo de dos días hábiles',
+  'Un repaso de mis embudos, copys y campañas',
+  'Ideas concretas para tu negocio, sin compromiso',
+];
+
+const clients = [
+  { name: 'Omnia Healing Grounds', logo: '/images/omnia-logo.jpg' },
+  { name: 'RitmoFlow', logo: '/images/ritmoflow-logo.jpg' },
+];
+---
+<BaseLayout
+  lang="es"
+  title="Ender Muñoz | Full-Stack Marketeer & Growth Hacker"
+  description="Ender Muñoz, Full-Stack Marketeer & Growth Hacker. Landing pages, copywriting psicológico, Meta Ads y arquitectura de embudos que convierten presupuesto en ingresos medibles."
+>
+  <!-- 1. HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Full-Stack Marketeer &amp; Growth Hacker</p>
+        <h1>Todo lo que tu equipo de marketing necesita para construir, escalar y <span class="hl">convertir tráfico</span>.</h1>
+        <p class="lead">Desde landing pages de alta conversión hasta copywriting psicológico, Meta Ads y arquitectura de embudos. Diseño sistemas que convierten presupuesto en ingresos medibles. Busco unirme a un equipo de growth con visión de futuro en Enschede.</p>
+        <p class="hero-note muted">Desde los Países Bajos · Abierto a roles en Enschede</p>
+      </div>
+
+      <div class="hero-right">
+        <img src="/images/ender.jpg" alt="Ender Muñoz, Full-Stack Marketeer & Growth Hacker" class="hero-photo reveal" width="1000" height="563" fetchpriority="high" decoding="async" />
+        <aside class="hero-card reveal" aria-label="Lo que aporto desde el primer día">
+        <p class="hc-title">Lo que aporto desde el primer día</p>
+        <ul class="hc-list">
+          {dayOne.map((item) => (
+            <li><Icon name="check" size={18} /> {item}</li>
+          ))}
+        </ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFER / PAIN-POINT HOOK -->
+  <section class="section offer">
+    <div class="container offer-grid">
+      <div class="offer-copy reveal">
+        <h2>¿Cuánto del presupuesto de marketing realmente <span class="hl">se convirtió en resultados</span> este año?</h2>
+        <p class="lead">La mayoría de los dueños de negocio no saben responder. Solo han tenido tácticas sueltas, reportes que no cuadran con la cuenta del banco y campañas que desaparecen sin resultados. <strong>Ese es el hueco que cierro. En 5 semanas, cada cuenta en la que trabajo obtiene:</strong></p>
+        <a href="#audit" class="btn btn--primary btn--lg">Agendar una llamada</a>
+      </div>
+      <ul class="offer-list reveal">
+        <li><span class="ol-ic"><Icon name="check" size={18} /></span> <span>Un diagnóstico claro de dónde se está desperdiciando el dinero</span></li>
+        <li><span class="ol-ic"><Icon name="check" size={18} /></span> <span>Investigación de mercado real y un posicionamiento competitivo honesto</span></li>
+        <li><span class="ol-ic"><Icon name="check" size={18} /></span> <span>Un plan de 12 meses, mes a mes, con creativos, canales y objetivos</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CLIENTS / SOCIAL PROOF -->
+  <section class="clients">
+    <div class="container">
+      <p class="clients-label">Negocios que he ayudado a crecer</p>
+      <div class="clients-logos">
+        {clients.map((c) => (
+          <img src={c.logo} alt={c.name} class="client-logo" loading="lazy" decoding="async" />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. MANIFESTO -->
+  <section class="section section--alt">
+    <div class="container narrow manifesto reveal">
+      <p class="eyebrow">En lo que creo</p>
+      <p class="manifesto-text">Los likes no pagan las cuentas. Construyo <span class="hl">sistemas de venta medibles</span>, con cada euro de tráfico rastreado desde el primer clic hasta la recompra. Si no se puede medir, no se puede escalar.</p>
+      <p class="slogan">“Construyo sistemas de venta, no métricas de vanidad.”</p>
+    </div>
+  </section>
+
+  <!-- Bridge image: half on cream, half on white -->
+  <div class="bridge">
+    <div class="container">
+      <img src="/images/growth-team.jpg" alt="Dos colegas trabajando juntos en una laptop" class="bridge-img" width="1000" height="1339" loading="lazy" decoding="async" />
+    </div>
+  </div>
+
+  <!-- 3. MY APPROACH -->
+  <section class="section gt-team" id="enfoque">
+    <div class="container">
+      <div class="sec-head reveal">
+        <p class="eyebrow">Mi enfoque</p>
+        <h2>Un marketeer. Un sistema. <span class="hl">Todas las piezas empujando juntas.</span></h2>
+        <p class="lead muted">La mayoría de los negocios compran embudo, copy, checkout, web, anuncios y contenido a personas distintas que nunca hablan entre sí. Yo los manejo como un solo sistema, para que cada pieza potencie a la siguiente.</p>
+      </div>
+
+      <ul class="disciplines reveal">
+        {disciplines.map((d) => (
+          <li>
+            <span class="d-ic"><Icon name={d.icon} size={22} /></span>
+            {d.label}
+          </li>
+        ))}
+      </ul>
+
+      <FunnelDiagram lang="es" steps={['Tráfico frío', 'Landing page', 'Checkout + Order bump', 'Upsell', 'Downsell', 'Email de seguimiento', 'Cliente fiel']} />
+      <FunnelDiagram lang="es" steps={['Tráfico frío', 'Quiz', 'Mini VSL', 'Checkout + Order bump', 'Upsell', 'Downsell', 'Emails de recuperación']} />
+      <p class="funnel-caption muted reveal">Desde el primer clic en un anuncio hasta un cliente que vuelve a comprar: diseñado, construido y medido de punta a punta.</p>
+    </div>
+  </section>
+
+  <!-- 4. SERVICES -->
+  <section class="section section--alt" id="servicios">
+    <div class="container">
+      <div class="sec-head reveal">
+        <p class="eyebrow">Mi growth stack</p>
+        <h2>Todo lo que un negocio necesita para <span class="hl">vender online</span></h2>
+        <p class="lead muted">Estas son las capacidades que aporto desde el primer día:</p>
+      </div>
+      <div class="services-grid">
+        {services.map((s) => <ServiceCard service={s} lang="es" />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. PROCESS -->
+  <section class="section" id="proceso">
+    <div class="container">
+      <div class="sec-head reveal">
+        <p class="eyebrow">Cómo trabajo</p>
+        <h2>Un camino claro de la <span class="hl">fuga a la escala</span></h2>
+      </div>
+      <ol class="process">
+        {steps.map((s) => (
+          <li class="step reveal">
+            <span class="step-n">{s.n}</span>
+            <div class="step-body">
+              <div class="step-head">
+                <h3>{s.title}</h3>
+                <span class="step-when">{s.when}</span>
+              </div>
+              <p class="muted">{s.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- 6. FINAL CTA + FORM -->
+  <section class="section section--alt" id="audit">
+    <div class="container audit-grid">
+      <div class="audit-copy reveal">
+        <p class="eyebrow">Hablemos</p>
+        <h2>Hagamos crecer tu <span class="hl">negocio</span> juntos</h2>
+        <p class="lead muted">Cuéntame sobre tu negocio, tu oferta y tus objetivos. Llego a la llamada con ideas concretas, no con un discurso de venta.</p>
+        <ul class="audit-list">
+          {contactIncludes.map((item) => (<li><Icon name="check" size={18} /> {item}</li>))}
+        </ul>
+      </div>
+      <div class="audit-form-col reveal">
+        <AuditForm lang="es" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

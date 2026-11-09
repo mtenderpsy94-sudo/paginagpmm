@@ -1,15 +1,17 @@
 ---
 // GDPR/AVG cookie banner. No analytics or Meta Pixel load until the user accepts.
 // The choice is stored in localStorage as "gpmm-consent" = "accepted" | "rejected".
+import { ui, type Lang } from '../i18n/ui';
+const { lang = 'en' } = Astro.props as { lang?: Lang };
+const t = ui[lang];
 ---
-<div class="cookie" id="cookie-banner" hidden role="dialog" aria-live="polite" aria-label="Cookie consent">
+<div class="cookie" id="cookie-banner" hidden role="dialog" aria-live="polite" aria-label={t.cookieAria}>
   <p>
-    We use essential cookies to run this site. With your consent we also use analytics to improve it.
-    See our <a href="/legal/cookie-policy">cookie policy</a>.
+    {t.cookieText} <a href="/legal/cookie-policy">{t.cookieLink}</a>.
   </p>
   <div class="cookie-actions">
-    <button type="button" class="btn btn--ghost" data-consent="rejected">Reject</button>
-    <button type="button" class="btn btn--primary" data-consent="accepted">Accept</button>
+    <button type="button" class="btn btn--ghost" data-consent="rejected">{t.reject}</button>
+    <button type="button" class="btn btn--primary" data-consent="accepted">{t.accept}</button>
   </div>
 </div>
 

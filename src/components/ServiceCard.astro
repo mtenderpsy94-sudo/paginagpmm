@@ -1,15 +1,18 @@
 ---
 import type { Service } from '../data/services';
 import Icon from './Icon.astro';
+import { ui, servicesEs, type Lang } from '../i18n/ui';
 
-interface Props { service: Service; }
-const { service } = Astro.props;
+interface Props { service: Service; lang?: Lang; }
+const { service, lang = 'en' } = Astro.props;
+const name = lang === 'es' ? servicesEs[service.slug]?.name ?? service.name : service.name;
+const benefit = lang === 'es' ? servicesEs[service.slug]?.benefit ?? service.benefit : service.benefit;
 ---
 <a href={`/services/${service.slug}`} class="service-card reveal">
   <span class="sc-ic"><Icon name={service.icon} size={24} /></span>
-  <h3>{service.name}</h3>
-  <p>{service.benefit}</p>
-  <span class="sc-link">Learn more <Icon name="arrow-right" size={16} /></span>
+  <h3>{name}</h3>
+  <p>{benefit}</p>
+  <span class="sc-link">{ui[lang].learnMore} <Icon name="arrow-right" size={16} /></span>
 </a>
 
 <style>

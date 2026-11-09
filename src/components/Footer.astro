@@ -2,17 +2,22 @@
 import { site } from '../data/site';
 import { services } from '../data/services';
 import Icon from './Icon.astro';
+import { ui, servicesEs, homePath, type Lang } from '../i18n/ui';
+
+const { lang = 'en' } = Astro.props as { lang?: Lang };
+const t = ui[lang];
+const es = lang === 'es';
 
 const year = new Date().getFullYear();
-const wa = `https://wa.me/${site.whatsapp.intl}?text=${encodeURIComponent(site.whatsapp.message)}`;
+const wa = `https://wa.me/${site.whatsapp.intl}?text=${encodeURIComponent(t.whatsappMessage)}`;
 const hasSocials = site.socials.instagram || site.socials.linkedin;
 ---
 <footer class="site-footer">
   <div class="container foot-grid">
     <div class="foot-brand">
-      <a href="/" class="logo" aria-label="Ender Muñoz, home">Ender Muñoz<span class="dot">.</span></a>
-      <p class="foot-title">Growth Systems Architect</p>
-      <p class="muted">Full-Stack Marketeer &amp; Growth Hacker. I build measurable sales systems that turn traffic into revenue.</p>
+      <a href={homePath[lang]} class="logo" aria-label={t.homeAria}>Ender Muñoz<span class="dot">.</span></a>
+      <p class="foot-title">{t.title}</p>
+      <p class="muted">{t.footerBlurb}</p>
       {hasSocials && (
         <div class="socials">
           {site.socials.instagram && (
@@ -25,41 +30,52 @@ const hasSocials = site.socials.instagram || site.socials.linkedin;
       )}
     </div>
 
-    <nav class="foot-col" aria-label="Services">
-      <h4>Services</h4>
+    <nav class="foot-col" aria-label={t.footerServices}>
+      <h4>{t.footerServices}</h4>
       <ul>
         {services.map((s) => (
-          <li><a href={`/services/${s.slug}`}>{s.name}</a></li>
+          <li><a href={es ? '/espanol#servicios' : `/services/${s.slug}`}>{es ? servicesEs[s.slug]?.name ?? s.name : s.name}</a></li>
         ))}
       </ul>
     </nav>
 
-    <nav class="foot-col" aria-label="Explore">
-      <h4>Explore</h4>
+    <nav class="foot-col" aria-label={t.footerExplore}>
+      <h4>{t.footerExplore}</h4>
       <ul>
-        <li><a href="/our-approach">My approach</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/#audit">Book an interview</a></li>
-        <li><a href="/legal/privacy-policy">Privacy policy</a></li>
-        <li><a href="/legal/terms">Terms</a></li>
-        <li><a href="/legal/cookie-policy">Cookie policy</a></li>
+        {es ? (
+          <>
+            <li><a href="/espanol#enfoque">{t.myApproach}</a></li>
+            <li><a href="/espanol#audit">{t.cta}</a></li>
+            <li><a href="/" hreflang="en">English version</a></li>
+          </>
+        ) : (
+          <>
+            <li><a href="/our-approach">{t.myApproach}</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/#audit">{t.cta}</a></li>
+            <li><a href="/espanol" hreflang="es">Versión en español</a></li>
+          </>
+        )}
+        <li><a href="/legal/privacy-policy">{t.privacy}</a></li>
+        <li><a href="/legal/terms">{t.terms}</a></li>
+        <li><a href="/legal/cookie-policy">{t.cookies}</a></li>
       </ul>
     </nav>
 
     <div class="foot-col">
-      <h4>Contact</h4>
+      <h4>{t.footerContact}</h4>
       <ul class="contact">
         <li><a href={wa}><Icon name="whatsapp" size={18} /> WhatsApp</a></li>
         {site.email && (
           <li><a href={`mailto:${site.email}`}><Icon name="mail" size={18} /> {site.email}</a></li>
         )}
-        <li><span><Icon name="map-pin" size={18} /> {site.location}</span></li>
+        <li><span><Icon name="map-pin" size={18} /> {es ? 'Países Bajos' : site.location}</span></li>
       </ul>
     </div>
   </div>
 
   <div class="container foot-bottom">
-    <p>© {year} {site.name}. All rights reserved.</p>
+    <p>© {year} {site.name}. {t.rights}</p>
     <p class="legal-ids">KvK {site.legal.kvk} · BTW {site.legal.btw}</p>
   </div>
 </footer>

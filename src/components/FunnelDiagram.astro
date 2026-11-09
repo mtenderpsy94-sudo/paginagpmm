@@ -1,16 +1,19 @@
 ---
 import Icon from './Icon.astro';
+import { ui, type Lang } from '../i18n/ui';
 
 interface Props {
   steps?: string[];
   class?: string;
+  lang?: Lang;
 }
 
 const {
   steps = ['Cold traffic', 'Landing page', 'Checkout + Order bump', 'Upsell', 'Downsell', 'Email follow-up', 'Repeat customer'],
   class: className,
+  lang = 'en',
 } = Astro.props;
-const label = `Funnel flow: ${steps.join(' to ').toLowerCase()}.`;
+const label = `${ui[lang].funnelAria}: ${steps.join(' → ')}.`;
 ---
 <div class:list={['funnel reveal', className]} role="img" aria-label={label}>
   {steps.map((step, i) => (

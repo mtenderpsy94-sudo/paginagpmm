@@ -1,14 +1,16 @@
 ---
 import { site } from '../data/site';
+import type { Lang } from '../i18n/ui';
 
 interface Props {
   title: string;
   description: string;
   image?: string;
   ogType?: string;
+  lang?: Lang;
 }
 
-const { title, description, image = '/og/default.svg', ogType = 'website' } = Astro.props;
+const { title, description, image = '/og/default.svg', ogType = 'website', lang = 'en' } = Astro.props;
 const canonical = new URL(Astro.url.pathname, site.url).href;
 const imageUrl = new URL(image, site.url).href;
 const fullTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
@@ -23,7 +25,9 @@ const fullTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
 <meta property="og:image" content={imageUrl} />
-<meta property="og:locale" content="en_US" />
+<meta property="og:locale" content={lang === 'es' ? 'es_ES' : 'en_US'} />
+<link rel="alternate" hreflang="en" href={new URL('/', site.url).href} />
+<link rel="alternate" hreflang="es" href={new URL('/espanol', site.url).href} />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={fullTitle} />
