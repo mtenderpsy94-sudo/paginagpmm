@@ -16,7 +16,7 @@ emails each submission to you. Security headers live in `public/_headers`.
 1. Sign up at <https://dash.cloudflare.com> → **Workers & Pages → Create →
    Pages → Connect to Git**, and pick the repo `mtenderpsy94-sudo/paginagpmm`.
 2. Build settings: framework preset **Astro**, build command `npm run build`,
-   output directory `dist`. Under environment variables add `NODE_VERSION` = `20`.
+   output directory `dist`. Under environment variables add `NODE_VERSION` = `22`.
 3. **Save and Deploy.** You get a URL like `paginagpmm.pages.dev`; check it.
 
 ## 3. Point gpmm.site to Cloudflare (DNS at Hostinger)
